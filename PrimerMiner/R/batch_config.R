@@ -1,0 +1,61 @@
+batch_config <- function(file){
+
+cat(file=file, append=F)
+
+# config text
+text_conf <- c("# Configuration file for batch download",
+"",
+"# General settings",
+"Taxon_table = \"path/to/csv/name_of_table.csv\" # csv containing taxa to download",
+"Taxon_sep = \",\" # table entries seperated by , ",
+"Marker = c(\"COi\", \"CO1\", \"COXi\", \"COX1\") # specify target gene",
+"Download = T # if FALSE, no data will be downloaded ",
+"Merge_and_Cluster_data = T # if set to FALSE, sequences are not merged / clustered",
+"",
+"# NCBI download, see ?Download_GB for details",
+"download_GB = T",
+"merge_GB = T",
+"maxlength_GB = 2000",
+"custom_query_GB = NULL",
+"clipping_left_GB = 26",
+"clipping_rigth_GB = 26",
+"",
+"# Mitochondria download, see ?Download_mito and ?Mito_GB2fasta for details",
+"download_mt = T",
+"merge_mt = T",
+"minlength_mt = 2001",
+"maxlength_mt = 80000",
+"custom_query_mt = NULL",
+"clipping_left_mt = 0",
+"clipping_rigth_mt = 0",
+"add_mt = 100",
+"rm_dup = T",
+"no_marker = T",
+"",
+"# BOLD download, see ?Download_BOLD for details",
+"download_bold = T",
+"merge_bold = T",
+"clipping_left_bold = 26",
+"clipping_rigth_bold = 26",
+"",
+"# Clustering sequences, see ?Clustering for details",
+"vsearchpath = \"Vsearch\"",
+"id = 0.97",
+"cmd = NULL",
+"threshold =  \"Majority\"",
+"",
+"# Write summary statistics",
+"summstats = T")
+
+
+
+cat(text_conf, file=file, append=T, sep="\n")
+
+}
+
+
+
+
+
+
+
