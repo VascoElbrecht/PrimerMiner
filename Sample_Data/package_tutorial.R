@@ -10,7 +10,7 @@ install.packages("PrimerMiner", repos = NULL, type="source")
 # load the package into R
 library("PrimerMiner")
 
-
+setwd("Sample_Data")
 # creating configuration file and batch downloading reads
 batch_config("config.txt")
 

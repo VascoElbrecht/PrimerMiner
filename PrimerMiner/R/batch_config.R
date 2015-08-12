@@ -2,6 +2,15 @@ batch_config <- function(file){
 
 cat(file=file, append=F)
 
+
+sys <- Sys.info()[['sysname']]
+
+if(sys=="Darwin"){sys <- "MacOSX"}
+if(sys=="Windows"){
+	print("WARNING: If you runing this packaga on a Windows PC, clustering will NOT work! Vsearch is used for OTU clustering and is not available for windows. Please run this package on a Mac or Lindus based system. Sorry for the inconvinience :(")
+}
+
+
 # config text
 text_conf <- c("# Configuration file for batch download",
 "",
@@ -39,7 +48,8 @@ text_conf <- c("# Configuration file for batch download",
 "clipping_rigth_bold = 26",
 "",
 "# Clustering sequences, see ?Clustering for details",
-"vsearchpath = \"Vsearch\"",
+paste("operating_system= \"", sys, "\" # autodetected, can be \"MacOSX\" or \"Linux\"", sep=""), 
+"vsearchpath = \"integrated\" # uses the Vsearch that comes with the R package. Use \"Vsearch\" for your local Vsearch install, or paste the path to the executable.",
 "id = 0.97",
 "cmd = NULL",
 "threshold =  \"Majority\"",

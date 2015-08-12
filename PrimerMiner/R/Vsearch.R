@@ -1,6 +1,18 @@
 # Vsearch
 
-Clustering <- function(file, vsearchpath="Vsearch", id=0.97, cmd="", threshold="Majority", setwd=NULL){
+Clustering <- function(file, vsearchpath="integrated", id=0.97, cmd="", threshold="Majority", setwd=NULL){
+
+
+if (vsearchpath=="integrated"){
+if (operating_system=="MacOSX"){
+vsearchpath <- paste(system.file(package="PrimerMiner"), "/vsearch-1.1.3-osx-x86_64", sep="")
+Sys.chmod(vsearchpath, mode = "0777", use_umask = TRUE)} else {
+vsearchpath <- paste(system.file(package="PrimerMiner"), "/vsearch-1.1.3-linux-x86_64", sep="")
+Sys.chmod(vsearchpath, mode = "0777", use_umask = TRUE)
+}
+}
+
+
 
 if(!is.null(setwd)){logfile <- paste(setwd, "/log.txt", sep="")} else {logfile <- "log.txt"}
 

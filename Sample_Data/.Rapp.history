@@ -1,0 +1,22 @@
+# 150324 - test file!#
+setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner/") # set the path to the PrimerMinder folder you just downloaded#
+#
+# install packages needed for PrimerMiner#
+install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)#
+#
+# install the PrimerMiner package#
+install.packages("PrimerMiner", repos = NULL, type="source")#
+#
+# load the package into R#
+library("PrimerMiner")#
+# creating configuration file and batch downloading reads#
+batch_config("config.txt")#
+#
+batch_download("taxa_small.csv", "config.txt")
+setwd("/Sample_Data")
+setwd("Sample_Data")
+setwd("Sample_Data")#
+# creating configuration file and batch downloading reads#
+batch_config("config.txt")#
+#
+batch_download("taxa_small.csv", "config.txt")
