@@ -1,13 +1,14 @@
 # Vsearch
 
+
 Clustering <- function(file, vsearchpath="integrated", id=0.97, cmd="", threshold="Majority", setwd=NULL){
 
 
 if (vsearchpath=="integrated"){
 if (operating_system=="MacOSX"){
-vsearchpath <- paste(system.file(package="PrimerMiner"), "/vsearch-1.1.3-osx-x86_64", sep="")
+vsearchpath <- paste(system.file(package="PrimerMiner"), "/vsearch-1.10.2_osx_x86_64", sep="")
 Sys.chmod(vsearchpath, mode = "0777", use_umask = TRUE)} else {
-vsearchpath <- paste(system.file(package="PrimerMiner"), "/vsearch-1.1.3-linux-x86_64", sep="")
+vsearchpath <- paste(system.file(package="PrimerMiner"), "/vsearch-1.10.2_linux_x86_64", sep="")
 Sys.chmod(vsearchpath, mode = "0777", use_umask = TRUE)
 }
 }
@@ -23,7 +24,8 @@ cat(paste(Sys.time(), "- Clustering reads with Vsearch\n"), file=logfile, sep=""
 dir.create(paste(setwd, "/Vsearch", sep=""), showWarnings=F)
 filename <- gsub("(.*).fasta$", "\\1", file)
 
-A <- system2(vsearchpath, paste(" -derep_fulllength ", meep, file, " -output ", setwd, "/Vsearch/", filename, "_drep.fasta 1 >", setwd, "/Vsearch/temp.txt", sep=""), stdout=T, stderr=T) # dereplicate!
+A <- system2(vsearchpath, paste(" -derep_fulllength ", meep, file, " -output ", setwd, "/Vsearch/", filename, "_drep.fasta >", setwd, "/Vsearch/temp.txt", sep=""), stdout=T, stderr=T) # dereplicate!
+
 
 temp <- readLines(paste(setwd, "/Vsearch/temp.txt", sep=""))
 nuc <- temp[grep("nt in", temp)]
@@ -37,12 +39,12 @@ print(paste("Rading", file, collapse=""))
 print(paste(sequ, "imput sequences ->", derep, "dereplicated sequences", collapse=""))
 
 # add ";size=1"
-A <- system2(vsearchpath, paste(" -derep_fulllength ", setwd, "/Vsearch/", filename, "_drep.fasta", " -output ", setwd, "/Vsearch/", filename, "_drep+1.fasta -sizeout 1", sep=""), stdout=F, stderr=F)
+A <- system2(vsearchpath, paste(" -derep_fulllength ", setwd, "/Vsearch/", filename, "_drep.fasta", " -output ", setwd, "/Vsearch/", filename, "_drep+1.fasta -sizeout", sep=""), stdout=F, stderr=F)
 
 
 
 # cluster sequences!
-A <- system2(vsearchpath, paste(" -cluster_fast ", setwd, "/Vsearch/", filename, "_drep+1.fasta -strand both", " -id ", id, " -msaout ", setwd, "/Vsearch/cluster_file", cmd, " 1 >", setwd,"/Vsearch/temp.txt", sep=""), stdout=T, stderr=T) # dereplicate!
+A <- system2(vsearchpath, paste(" -cluster_fast ", setwd, "/Vsearch/", filename, "_drep+1.fasta -strand both", " -id ", id, " -msaout ", setwd, "/Vsearch/cluster_file", cmd, " >", setwd,"/Vsearch/temp.txt", sep=""), stdout=T, stderr=T) # dereplicate!
 
 
 temp <- readLines(paste(setwd, "/Vsearch/temp.txt", sep=""))
@@ -54,9 +56,9 @@ print(paste("Clusters: ", clust_no, collapse=""))
 cat(paste(version, "\n\n", sep=""), file=logfile, sep="", append=T)
 cat(paste("Used fasta file: ", file, "\nNumber of imput sequences: ", sequ, "\nDereplicated: ", derep, "\nCluster: ", clust_no, "\n\n", sep=""), file=logfile, sep="", append=T)
 
-cat(paste("VSEARCH comands:\n\n", vsearchpath, " -derep_fulllength ", meep, file, " -output ", setwd, "/Vsearch/", filename, "_drep.fasta 1 >", setwd, "/Vsearch/temp.txt\n", 
-vsearchpath, " -derep_fulllength ", setwd, "/Vsearch/", filename, "_drep.fasta", " -output ", setwd, "/Vsearch/", filename, "_drep+1.fasta -sizeout 1", "\n",
-vsearchpath, " -cluster_fast ", setwd, "/Vsearch/", filename, "_drep+1.fasta -strand both", " -id ", id, " -msaout ", setwd, "/Vsearch/cluster_file", cmd, " 1 >", setwd,"/Vsearch/temp.txt", 
+cat(paste("VSEARCH comands:\n\n", vsearchpath, " -derep_fulllength ", meep, file, " -output ", setwd, "/Vsearch/", filename, "_drep.fasta >", setwd, "/Vsearch/temp.txt\n", 
+vsearchpath, " -derep_fulllength ", setwd, "/Vsearch/", filename, "_drep.fasta", " -output ", setwd, "/Vsearch/", filename, "_drep+1.fasta -sizeout", "\n",
+vsearchpath, " -cluster_fast ", setwd, "/Vsearch/", filename, "_drep+1.fasta -strand both", " -id ", id, " -msaout ", setwd, "/Vsearch/cluster_file", cmd, "  >", setwd,"/Vsearch/temp.txt", 
 
 "\n\n", sep=""), file=logfile, sep="", append=T)
 
@@ -76,6 +78,12 @@ sequ <- data[(start[i]+1):(stop[i]-1)]
 
 cat(sequ, file=paste(setwd, "/Vsearch/cluster_fasta", "/", i, ".fasta", sep=""), sep="\n")
 }
+
+
+# log file
+cat(length(start), file=paste(setwd, "log_cluster.txt"), sep="\n")
+cat("faste files written", file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
+
 
 cat("", file=paste(setwd, "/", filename, "_cons_cluster_", threshold, ".fasta", sep=""), append=F)
 
@@ -107,42 +115,57 @@ upac[upac==0.25] <- 0 # make N zero score!
 
 letter <- c()
 for (j in 1:nrow(upac.score)){
-letter[j] <- paste(upac.score[j,], collapse="")
+letter[j] <- paste(as.numeric(upac.score[j,]), collapse="")
 }
+
+cat("loop start", file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 
 # loop import!
+d <- 6
+for (d in 1:length(start)){
+
+cat("in loop", file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
+cat(d, file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 
 
-for (i in 1:length(start)){
-
-alignment <- read.alignment(paste(setwd, "/Vsearch/cluster_fasta", "/", i, ".fasta", sep=""), "fasta")
-
-sequ <- toupper(alignment$seq)
-sequ <- data.frame(strsplit(sequ, split=""), stringsAsFactors=F)
-names(sequ) <- c(1:ncol(sequ))
+alignment1 <- read.fasta(paste(setwd, "/Vsearch/cluster_fasta", "/", d, ".fasta", sep=""), seqonly=T)
+alignment  <- toupper(alignment1)
+alignment <- unlist(strsplit(alignment, split=""))
+alignment <- match(alignment, upac$ID)
+alignment <- matrix(alignment, nrow=length(alignment1), ncol=nchar(alignment1[1]), byrow=T)
 
 
-buildsequ <- NULL
-for (k in 1:nrow(sequ)){
-temp <- match(sequ[k,], upac$ID) # match nucleotides
-prop <- colSums(upac[,3:6][temp,]) # calculate scores
-prop <- prop/sum(prop) # percentage
 
-prop[is.na(prop)] <- 1
-prop[prop==0] <- -1
+meep2 <- c()
+for (k in 1:ncol(alignment)){
+data <- alignment[,k]
+
+colu <- upac[data, 3:6]
+
+hey <- colSums(colu)
+
+# shanon entropy
+p <- hey / sum(hey)
 
 if(threshold=="Majority"){
-prop <- prop==max(prop)
-} else {prop <- prop>=threshold}
+p <- p ==max(p)
+} else {p <- p>=threshold}
 
-
-
-buildsequ <- c(buildsequ, upac$ID[match(paste(prop, collapse=""), letter)])
+meep2 <- c(meep2, paste(as.numeric(p), collapse=""))
 }
-cat(paste(">", i, "\n", paste(buildsequ, sep="", collapse=""), "\n", sep=""), file=paste(setwd, "/", filename, "_cons_cluster_", threshold, ".fasta", sep=""), append=T)
+
+buildsequ <- upac$ID[match(meep2, letter)]
+cat(paste(">", d, "\n", paste(buildsequ, sep="", collapse=""), "\n", sep=""), file=paste(setwd, "/", filename, "_cons_cluster_", threshold, ".fasta", sep=""), append=T)
+
+
+cat(paste(buildsequ, sep="", collapse=""), file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
+
 
 }
+
+
 }
+
 
 
 
