@@ -26,6 +26,24 @@ subFolderPath <- paste(subFolder, "/", subFolder, sep="") # set op filepath
 if (table[subEnd,2]==""){taxa <- subFolder} else {
 taxa <- table[subStart:subEnd, 2]}
 
+
+# check if downloading and clustering is already done!
+download_and_cluster <- T # tipicly data has not been processed
+
+if(Skip_if_complete){
+done <- file.exists(paste(subFolder, "/", "done.txt", sep=""))
+if(done){
+download_and_cluster <- F # DON'T REDOWNLOAD DATA
+time <- readLines(paste(subFolder, "/", "done.txt", sep=""), warn=F)
+print(paste("Data for *", subFolder, "* was already downloaded and clustered on ", time[1], " and will thus be skipped. Turn Skip_if_complete to F, if you like data to be redownloaded and reclustered or delete the file done.txt in the folder ", subFolder,  sep=""))
+print("")
+print("-------------------")
+print("")
+}
+}
+
+if(download_and_cluster){
+
 # download data!
 
 if (Download){
@@ -83,10 +101,15 @@ print("")
 print("-------------------")
 print("")
 
+
+cat(file=paste(subFolder, "/", "done.txt", sep=""), paste(Sys.time()))
+
 }
-#setwd("../")
+}# download and cluster or not!
+
 } # folder end
 
+#print("starting with stats")
 # write summary statistics
 if(summstats){
 download_stats(table)

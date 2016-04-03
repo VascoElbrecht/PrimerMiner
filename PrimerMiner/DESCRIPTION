@@ -1,8 +1,8 @@
 Package: PrimerMiner
 Type: Package
-Title: Generate and visualise degenerated Primers from DNA sequence databases (BOLD & DCBI)
-Version: 1.0
-Date: 2015-02-08
+Title: Generate and visualise degenerated Primers from DNA sequence databases (BOLD & NCBI)
+Version: 0.3
+Date: 2016-03-30
 Author: Vasco Elbrecht
 Maintainer: Vasco Elbrecht <luckylion07@googlemail.com>
 Description: This package is designed to assist you with generating degenerated barcoding primers for the taxonomic group of interest. Extract the primer binding region from an alignment, and this package will visualise the nucleotide proportions, coverage and degenerated consensus.

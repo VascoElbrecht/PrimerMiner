@@ -7,12 +7,13 @@ sys <- Sys.info()[['sysname']]
 
 if(sys=="Darwin"){sys <- "MacOSX"}
 if(sys=="Windows"){
-	print("WARNING: If you runing this packaga on a Windows PC, clustering will NOT work! Vsearch is used for OTU clustering and is not available for windows. Please run this package on a Mac or Lindus based system. Sorry for the inconvinience :(")
+	print("WARNING: If you runing this package on a Windows PC, clustering will NOT work! Vsearch is used for OTU clustering and is not available for windows. Please run this package on a Mac or Linxs based system. Sorry for the inconvinience :(")
 }
 
 
 # config text
 text_conf <- c("# Configuration file for batch download",
+"Version = 0.3 # you might need to regenerate this config file with earlyer or later versions of PrimerMiner!",
 "",
 "# General settings",
 "Taxon_table = \"path/to/csv/name_of_table.csv\" # csv containing taxa to download",
@@ -20,6 +21,7 @@ text_conf <- c("# Configuration file for batch download",
 "Marker = c(\"COi\", \"CO1\", \"COXi\", \"COX1\") # specify target gene",
 "Download = T # if FALSE, no data will be downloaded ",
 "Merge_and_Cluster_data = T # if set to FALSE, sequences are not merged / clustered",
+"Skip_if_complete = T # if the data for a group was completely downloaded + clustered PrimerMiner will not download / cluster the data in the respecitve folder again. Set \"Skip_if_complete\" and \"Download\" to \"F\" if you like all data to be reclustered but not downloaded again",
 "",
 "# NCBI download, see ?Download_GB for details",
 "download_GB = T",
