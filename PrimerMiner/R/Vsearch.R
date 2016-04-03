@@ -80,9 +80,6 @@ cat(sequ, file=paste(setwd, "/Vsearch/cluster_fasta", "/", i, ".fasta", sep=""),
 }
 
 
-# log file
-cat(length(start), file=paste(setwd, "log_cluster.txt"), sep="\n")
-cat("faste files written", file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 
 
 cat("", file=paste(setwd, "/", filename, "_cons_cluster_", threshold, ".fasta", sep=""), append=F)
@@ -118,13 +115,11 @@ for (j in 1:nrow(upac.score)){
 letter[j] <- paste(as.numeric(upac.score[j,]), collapse="")
 }
 
-cat("loop start", file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 
 # loop import!
 d <- 6
 for (d in 1:length(start)){
 
-cat("in loop", file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 cat(d, file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 
 
@@ -156,9 +151,6 @@ meep2 <- c(meep2, paste(as.numeric(p), collapse=""))
 
 buildsequ <- upac$ID[match(meep2, letter)]
 cat(paste(">", d, "\n", paste(buildsequ, sep="", collapse=""), "\n", sep=""), file=paste(setwd, "/", filename, "_cons_cluster_", threshold, ".fasta", sep=""), append=T)
-
-
-cat(paste(buildsequ, sep="", collapse=""), file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
 
 
 }
