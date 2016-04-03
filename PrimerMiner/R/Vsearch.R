@@ -120,16 +120,12 @@ letter[j] <- paste(as.numeric(upac.score[j,]), collapse="")
 d <- 6
 for (d in 1:length(start)){
 
-cat(d, file=paste(setwd, "log_cluster.txt"), sep="\n", append=T)
-
 
 alignment1 <- read.fasta(paste(setwd, "/Vsearch/cluster_fasta", "/", d, ".fasta", sep=""), seqonly=T)
 alignment  <- toupper(alignment1)
 alignment <- unlist(strsplit(alignment, split=""))
 alignment <- match(alignment, upac$ID)
 alignment <- matrix(alignment, nrow=length(alignment1), ncol=nchar(alignment1[1]), byrow=T)
-
-
 
 meep2 <- c()
 for (k in 1:ncol(alignment)){
