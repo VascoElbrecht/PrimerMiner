@@ -108,8 +108,6 @@ N,any base,0.25,0.25,0.25,0.25,T
 upac[upac==0.3] <- 1/3
 upac.score <- upac[,3:6] > 0
 
-upac[upac==0.25] <- 0 # make N zero score!
-
 letter <- c()
 for (j in 1:nrow(upac.score)){
 letter[j] <- paste(as.numeric(upac.score[j,]), collapse="")
@@ -117,7 +115,9 @@ letter[j] <- paste(as.numeric(upac.score[j,]), collapse="")
 
 
 # loop import!
-d <- 6
+d <- 5
+
+
 for (d in 1:length(start)){
 
 
@@ -126,6 +126,8 @@ alignment  <- toupper(alignment1)
 alignment <- unlist(strsplit(alignment, split=""))
 alignment <- match(alignment, upac$ID)
 alignment <- matrix(alignment, nrow=length(alignment1), ncol=nchar(alignment1[1]), byrow=T)
+
+table(alignment)
 
 meep2 <- c()
 for (k in 1:ncol(alignment)){
@@ -142,8 +144,11 @@ if(threshold=="Majority"){
 p <- p ==max(p)
 } else {p <- p>=threshold}
 
+if(is.na(p[1])){p <- c(0,0,0,0)} # replace N's (they are detected and writen as NA)
 meep2 <- c(meep2, paste(as.numeric(p), collapse=""))
 }
+
+
 
 buildsequ <- upac$ID[match(meep2, letter)]
 cat(paste(">", d, "\n", paste(buildsequ, sep="", collapse=""), "\n", sep=""), file=paste(setwd, "/", filename, "_cons_cluster_", threshold, ".fasta", sep=""), append=T)
