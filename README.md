@@ -1,58 +1,41 @@
 # PrimerMiner
-PrimerMiner is a R based package, which allows you to batch download a specific barcoding gene (like COI, 16S) from NCBI and BOLD databases. The sequences are then clustered into Operational taxonomic units (OTU) using Vsearch and the consensus sequence of each cluster saved in a fasta file. The OTUs in wich each species is represented by only ~one sequence, can then be used in other programs for universal primer development, or aligned and visualised with PrimerMiner for finding good primers.
 
-Please take a look at the [Poster_introduction.pdf](https://github.com/VascoElbrecht/PrimerMiner/blob/master/Poster_introduction.pdf) to learn more about the ideas behind PrimerMiner as well as a quick start tutorial. You can download the poster by clicking on "RAW" on the top right.
+PrimerMiner is a R based batch sequence downloader to design and verify metabarcoding primers. Sequences for a specified marker (e.g. COI) are obtained from NCBI and BOLD and clustered into Operational taxonomic units (OTU) to reduce bias introduced by over represented sequences in the data bases.
 
-**BETA RELEASE**: This is a very early beta release! The software works, but I'm still optimising and adding documentation!
+PrimerMiner requires an internet connection for downloading sequences and was only tested on MacOSX (should work on linux as well). 
 
-**Only tested on MacOSX** In theory this works on linux, but PrimerMiner is currently only developed and tested on MacOSX. 
+# Documentation and video tutorials
 
-## Known issues
-- Not tested on Linux!
-- On Mac, don't run Primer Miner from the download folder (causes a problem to generate the sumary statistiks)
-- Lacks good documentation, I'm working on it
-- Found another problem? Please send me your configuration file, taxa table and which operating system you are using and I will take a look (luckylion07@googlemail.com)!
+Please take a look at the PrimerMiner wiki for detailed package documentation and tutorials. We are happy to help should you run into any issues or run into problems (contact: luckylion07@googlemail.com).
 
-## Installing PrimerMiner
 
-PrimerMiner is package for R, wich can be downloaded on [r-project.org](https://www.r-project.org/)
+## Quick guide
 
-You can download the latest release of [PrimerMiner](https://github.com/VascoElbrecht/PrimerMiner/releases) and install it with the following commands in R:
-
+1) Installation
 `install.packages(c("bold", "XML", "rentrez", "seqinr", "devtools"), dependencies=T)`
-`install.packages("path_to_file", repos = NULL, type="source")`
-
+`install.packages("path_to_package_file", repos = NULL, type="source")`
 Load the package with `library("PrimerMiner")`. You find al the commands and an executable example in the Sample_Data!
 
-## Batch downloading sequences
+2) Batch downloading sequences
+Generate the configuration file by runing `batch_config("config.txt")`in R. Edit this file to review and change the default settings.
+Create a csv table containing the groups (and their subgroups if you want to download a subset of that group) for which data should be downloaded. See "taxa_small.csv" in the folder Sample_Data.
 
-Setting for marker, downloading and clustering can be made in the configuration file, wich can be created by running `batch_config("config.txt")`in R. The txt file can then be edited and settings adjusted.
-
-By default data is downloaded for the standard COI barcoding marker. If you would like to download sequences for another marker change `Marker = c("16S", "large subunit ribosomal RNA", "16S ribosomal RNA", "l-rRNA")'. If you are downloading data for a barcoding marker which is not present on BOLD, make sure to set ‘download_bold = T‘.
-
-
-In a second file you have provide information about the taxa for which sequences should be downloaded. This is done in a csv table file like in the Sample_Data. You can specify taxonomic groups with latin names, and also download a subset within a group (like certain families within the order Coleoptera). Please make sure to keep the taxonomic scope broad, on order or family level. On a genus or species level PrimerMiner does not work well, due to lack of sequences in databases and multiple hits in BOLD for the same query.
-
+3) Batch download sequence data
 To start the batch download, run `batch_download("taxa_small.csv", "config.txt")` giving the name of the taxon table and configuration file.
 
-PrimerMiner might take several hours to download and process the data for big datasets! Please don't touch anything and let R do it's thing.
+4) Bild alignments
+Align OTUs and extract region interesting for primer development e.g. with Geneious and MAFFT. Export the aligned sequences as a fasta file
 
-## What to do with the PrimerMiner output?
+5) Visualise alignments
+With `` you can produce plots of the alignments, to use for primer design and visualisation (see [Poster_introduction.pdf](https://github.com/VascoElbrecht/PrimerMiner/blob/master/Poster_introduction.pdf) for an example).
 
-PrimerMiner Uses [Vsearch](https://github.com/torognes/vsearch) to cluster sequences and generate consensus sequences of the OTUs. 
+6) Primer evaluations - coming soon!
 
+## PrePrint for this package
 
-
-
-
-## References
-
+Elbrecht & Leese (2016). https://peerj.com/preprints/2044/
 
 
 ## Contact
 
-
-
-
-
-
+Vasco Elbrecht  - luckylion07@googlemail.com
