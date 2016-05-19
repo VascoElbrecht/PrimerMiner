@@ -4,6 +4,7 @@ batch_download <- function(table, config){
 source("config.txt")
 if(is.data.frame(table)){} else {table <- read.csv(table, sep= Taxon_sep, stringsAsFactors=F)}
 
+table[2][is.na(table[2])] <- "" # replace NAs if only orders are given
 
 folder <- which(table[,1]!="")
 folder <- c(folder, nrow(table)+1)
