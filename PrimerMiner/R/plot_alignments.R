@@ -83,7 +83,7 @@ meep <- start:end
 for (h in 1:nrow(padd)){
 s <- 1
 temp <- list[[s]][meep[h], 2:5]
-if(length(files)>1){ # more than one file, add other values as well
+if(length(files)>1){
 for (s in 2:length(files)){
 temp <- rbind(temp+list[[s]][meep[h], 2:5])
 }
@@ -92,17 +92,12 @@ p <- temp / sum(temp)
 
 #make plot
 
-m <- 5
-
-padd <- c(0, p*2)
+padd <- cbind(0, p*2)
 for (m in 2:5){
 rect(h-0.5, sum(padd[1:m-1])+1.75, h+0.5, sum(padd[1:m])+1.75, col=plotcol[m-1])}
 
-
 rect(h-0.5, 0, h+0.5, 0.6, col= plotcol[which.max(p)], border=NA)
-text(h, 0.3, names(p)[which.max(p)], cex=0.75) # write cons nucleotide
-
-# need to add wobble base consensus options at some point!
+text(h, 0.3, names(as.data.frame(p))[which.max(p)], cex=0.75)
 
 # plot nucleotide cov boxes
 rect(h-0.5, 0.8, h+0.5, 1.4, col= covcol[length(which(p>threshold))], border=NA)
