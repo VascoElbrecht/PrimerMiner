@@ -1,5 +1,4 @@
 
-
 primer_treshold <- function(fw=NULL, rw=NULL, threshold=60, file=NULL){
 
 if(is.null(c(fw, rw))){stop("Please provide at least one table with primer evaluations! see ?evaluate_primer for details = )")}
@@ -41,3 +40,5 @@ return(unlist(list("OK"=ok, "fail"=fail, "missing"=gaps)))
 }
 }
 
+
+#prompt(primer_treshold, "primer_treshold.Rd")
