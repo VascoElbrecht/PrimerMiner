@@ -1,5 +1,5 @@
-\name{primer_treshold}
-\alias{primer_treshold}
+\name{primer_threshold}
+\alias{primer_threshold}
 \title{
 Analyse evaluate_primer() tables
 }
@@ -7,7 +7,7 @@ Analyse evaluate_primer() tables
 Takes tables generated with \code{\link{evaluate_primer}} and sums up the number of primers which worked and failed based on a defined \code{threshold}. When two files are given, the mismatch penalties from both primers are added together before sequences are filtered based on the threshold (scores can be saved with \code{file}). It is recommended to use a higher threshold when evaluation primer pairs than when looking at single primers.
 }
 \usage{
-primer_treshold(fw = NULL, rw = NULL, threshold = 60, file = NULL)
+primer_threshold(fw = NULL, rw = NULL, threshold = 60, file = NULL)
 }
 \arguments{
   \item{fw}{
