@@ -1,4 +1,5 @@
 
+
 evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T, save=NULL, gap_NA=T, N_NA=T, mm_position=NULL, mm_type=NULL, adjacent=2){
 
 # load defults or load csv
@@ -74,7 +75,11 @@ scores <- NULL
 if (length(alignment1)==1){primer_region <- rbind(primer_region, primer_region)
 primer_region_1 <- TRUE} else {primer_region_1 <- FALSE}# duplicate row if only one sequence!
 
+
+
+
 for(i in 1:length(primer)){
+
 
 sequ <- upac[match(primer_region[,i], upac$ID), 3:6]
 sequ <- sequ>0
@@ -110,21 +115,31 @@ if(!is.null(mm_type)){
 sequ3 <- sequ2
 sequ3[,unlist(primer_woble[i,])] <- 0 # keep missmatches
 
-mm <- !unlist(primer_woble[i,]) # not matching bases in primer
+# switch out bases, build rev comp!
+sequ3 <- sequ3[c(2,1,4,3)]
+names(sequ3) <- names(sequ2)
 
-type <- read.csv(mm_type)
 
-type_scoes <- rep(0, nrow(sequ3)) # empty table
-for (m in c(1:4)[mm]){ # cycle trough primer base
+mm <- unlist(primer_woble[i,]) # bases present in primer
+
+type <- read.csv(mm_type) # mm table
+
+
+
+type_scoes <- rep(NA, nrow(sequ3)) # empty table
+for (m in c(1:4)[mm]){ # cycle trough bases present in primer
 
 type_temp <- 0 # calculate scores for individual mm of primer base in sequ
-for(n in 2:5){
+for(n in 2:5){ # acount for wobbles in sequence
 type_temp <- cbind(type_temp, sequ3[n-1]*type[m,n])
 }
 type_temp[type_temp==0] <- NA
-type_temp <- rowMeans(type_temp, na.rm=T)
+type_temp[type_temp<1 & !is.na(type_temp)] <- -1/type_temp[type_temp<1 & !is.na(type_temp)] # change < 1 into reduction factor to calculate means
+type_temp2 <- rowMeans(type_temp, na.rm=T)
 
-type_scoes <- cbind(type_scoes, type_temp)
+type_temp2[type_temp2<0 & !is.na(type_temp2)] <- -1/type_temp2[type_temp2<0 & !is.na(type_temp2)] # convert negative factor number into 0.5 factors to multiply with
+
+type_scoes <- cbind(type_scoes, type_temp2)
 }
 
 type_scoes <- cbind(type_scoes, NA)
@@ -132,9 +147,15 @@ type_scoes <- cbind(type_scoes, NA)
 type_scoes <- rowMeans(type_scoes, na.rm=T)
 type_scoes[is.na(type_scoes)] <- 1
 
+type_scoes <- type_scoes * wob_sequ_adj_factor # adjust for woble bases that match the primer partially
+
 match <- match* type_scoes
 }
+
+# cbind(primer_region[,24], type_scoes, wob_sequ_adj_factor)
 # end mismatch type
+
+
 
 
 if(gap_NA){match[primer_region[,i]=="-"] <- NA} else {match[primer_region[,i]=="-"] <- pos[length(primer)+1-i,2]}# mark gaps
@@ -179,6 +200,7 @@ if(!is.null(save)){write.csv(scores, save)} else {print("no save file given!")}#
 print("I'm done = )")
 
 }
+
 
 
 #prompt(evaluate_primer, "evaluate_primer.Rd")
