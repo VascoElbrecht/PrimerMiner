@@ -77,7 +77,7 @@ primer_region_1 <- TRUE} else {primer_region_1 <- FALSE}# duplicate row if only 
 
 
 
-
+i <- 24
 for(i in 1:length(primer)){
 
 
@@ -115,7 +115,7 @@ if(!is.null(mm_type)){
 sequ3 <- sequ2
 sequ3[,unlist(primer_woble[i,])] <- 0 # keep missmatches
 
-# switch out bases, build rev comp!
+# switch out bases, build rev comp! primer binds on complementary bases : )
 sequ3 <- sequ3[c(2,1,4,3)]
 names(sequ3) <- names(sequ2)
 
@@ -134,28 +134,32 @@ for(n in 2:5){ # acount for wobbles in sequence
 type_temp <- cbind(type_temp, sequ3[n-1]*type[m,n])
 }
 type_temp[type_temp==0] <- NA
-type_temp[type_temp<1 & !is.na(type_temp)] <- -1/type_temp[type_temp<1 & !is.na(type_temp)] # change < 1 into reduction factor to calculate means
-type_temp2 <- rowMeans(type_temp, na.rm=T)
-
-type_temp2[type_temp2<0 & !is.na(type_temp2)] <- -1/type_temp2[type_temp2<0 & !is.na(type_temp2)] # convert negative factor number into 0.5 factors to multiply with
+factor <- rowSums(!is.na(type_temp), na.rm=T) # count number of nucleotides (wobles) in sequ
+factor <- 1/factor
+factor[is.infinite(factor)] <- NA
+type_temp2 <- type_temp*factor
+type_temp2 <- rowSums(type_temp2, na.rm=T)
 
 type_scoes <- cbind(type_scoes, type_temp2)
 }
 
 type_scoes <- cbind(type_scoes, NA)
 
-type_scoes <- rowMeans(type_scoes, na.rm=T)
-type_scoes[is.na(type_scoes)] <- 1
+factor <- rowSums(!is.na(type_scoes), na.rm=T)
+factor <- 1/factor
+factor[is.infinite(factor)] <- NA
+type_scoes2 <- type_scoes*factor
+type_scoes2 <- rowSums(type_scoes2, na.rm=T)
 
-type_scoes <- type_scoes * wob_sequ_adj_factor # adjust for woble bases that match the primer partially
+type_scoes2[type_scoes2==0] <- 1
+
+type_scoes <- type_scoes2 * wob_sequ_adj_factor # adjust for woble bases that match the primer partially
 
 match <- match* type_scoes
 }
 
 # cbind(primer_region[,24], type_scoes, wob_sequ_adj_factor)
 # end mismatch type
-
-
 
 
 if(gap_NA){match[primer_region[,i]=="-"] <- NA} else {match[primer_region[,i]=="-"] <- pos[length(primer)+1-i,2]}# mark gaps
