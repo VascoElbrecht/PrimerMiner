@@ -1,12 +1,11 @@
 
-
 evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T, save=NULL, gap_NA=T, N_NA=T, mm_position=NULL, mm_type=NULL, adjacent=2){
 
 # load defults or load csv
 
 
 if(is.null(mm_position)){print("Pleas supply a table indicating penalty scorres for the mismatch possitions. Please see http://www. XXXX for details")
-stop()} else {pos <- read.csv(mm_position)}
+stop()} else {pos <- read.csv(mm_position, header=F)}
 
 if(is.null(mm_type)){print("Mismatch types are ignored.")} else {
 type <- read.csv(mm_type)
@@ -96,6 +95,7 @@ error <- which(!rowSums(sequ==-1)>0) # sequences that do not match the primer wo
 numberofmatches <- rowSums(sequ==-1)
 match <- rep(0, nrow(sequ)) # 
 
+
 sequ2 <- sequ
 sequ2[sequ2==-2] <- 0 # remove -2 (= not a match)
 sequ2[sequ2==-1] <- 1
@@ -108,6 +108,11 @@ wob_sequ_adj_factor <- as.vector(wob_sequ_adj_factor) # adjust for wobbles in se
 
 match[error] <- pos[length(primer)+1-i,2]
 match[wob_sequ_adj_factor<1] <- pos[length(primer)+1-i,2]
+
+
+#cbind(primer_region[,i], "matches"=numberofmatches, "sequbase"=rowSums(sequ2), match, numberofmatches-rowSums(sequ2))
+
+
 
 # adjustment of mismatch type
 if(!is.null(mm_type)){
@@ -153,9 +158,11 @@ type_scoes2 <- rowSums(type_scoes2, na.rm=T)
 
 type_scoes2[type_scoes2==0] <- 1
 
-type_scoes <- type_scoes2 * wob_sequ_adj_factor # adjust for woble bases that match the primer partially
+#type_scoes3 <- type_scoes2 * wob_sequ_adj_factor # adjust for woble bases that match the primer partially # already included
 
-match <- match* type_scoes
+#cbind(primer_region[,i], "matches"=numberofmatches, "sequbase"=rowSums(sequ2), match, numberofmatches-rowSums(sequ2), type_scoes3, wob_sequ_adj_factor)
+
+match <- match* type_scoes2
 }
 
 # cbind(primer_region[,24], type_scoes, wob_sequ_adj_factor)
@@ -204,8 +211,6 @@ if(!is.null(save)){write.csv(scores, save)} else {print("no save file given!")}#
 print("I'm done = )")
 
 }
-
-
 
 #prompt(evaluate_primer, "evaluate_primer.Rd")
 
