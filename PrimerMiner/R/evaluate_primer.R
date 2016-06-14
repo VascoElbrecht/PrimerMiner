@@ -76,7 +76,7 @@ primer_region_1 <- TRUE} else {primer_region_1 <- FALSE}# duplicate row if only 
 
 
 
-i <- 24
+i <- 23
 for(i in 1:length(primer)){
 
 
@@ -101,7 +101,8 @@ sequ2[sequ2==-2] <- 0 # remove -2 (= not a match)
 sequ2[sequ2==-1] <- 1
 
 
-wob_sequ_adj_factor <- numberofmatches/rowSums(sequ2)
+
+wob_sequ_adj_factor <- (rowSums(sequ2)-numberofmatches)/rowSums(sequ2)
 wob_sequ_adj_factor[error] <- 1
 #wob_sequ_adj_factor[is.na(wob_sequ_adj_factor)] <- 1
 wob_sequ_adj_factor <- as.vector(wob_sequ_adj_factor) # adjust for wobbles in sequence
@@ -211,6 +212,7 @@ if(!is.null(save)){write.csv(scores, save)} else {print("no save file given!")}#
 print("I'm done = )")
 
 }
+
 
 #prompt(evaluate_primer, "evaluate_primer.Rd")
 
