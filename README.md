@@ -12,8 +12,7 @@ Please take a look at the PrimerMiner wiki for detailed package documentation an
 ## Quick guide
 
 1) Installation
-`install.packages(c("bold", "XML", "rentrez", "seqinr", "devtools"), dependencies=T)`
-`install.packages("path_to_package_file", repos = NULL, type="source")`
+`install.packages("path_to_package_file", repos = NULL, type="source", dependencies=T)`
 Load the package with `library("PrimerMiner")`. You find al the commands and an executable example in the Sample_Data!
 
 2) Batch downloading sequences

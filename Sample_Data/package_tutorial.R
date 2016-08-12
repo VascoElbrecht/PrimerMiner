@@ -1,11 +1,8 @@
 # 150324 - test file!
 setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner/") # set the path to the PrimerMinder folder you just downloaded
 
-# install packages needed for PrimerMiner
-install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)
-
-# install the PrimerMiner package
-install.packages("PrimerMiner", repos = NULL, type="source")
+# install the PrimerMiner package icl dependencies
+install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
 
 # load the package into R
 library("PrimerMiner")
@@ -28,5 +25,12 @@ alignments <- list.files("Sample_Data/1 COi alignments", full.name=T) # find fil
 pdf("Sample_Data/primer_plot_complete.pdf", height=6, width=100)
 plot_alignments(alignments, Order_names=gsub(".*ts/.._(.*)_.*", "\\1", alignments))
 dev.off()
+
+
+
+
+
+
+
 
 
