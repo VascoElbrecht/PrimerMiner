@@ -26,7 +26,7 @@ To start the batch download, run `batch_download("taxa_small.csv", "config.txt")
 Align OTUs and extract region interesting for primer development e.g. with Geneious and MAFFT. Export the aligned sequences as a fasta file
 
 5) Visualise alignments
-With `` you can produce plots of the alignments, to use for primer design and visualisation (see [Poster_introduction.pdf](https://github.com/VascoElbrecht/PrimerMiner/blob/master/Poster_introduction.pdf) for an example).
+With `plot_alignments(path_to_fasta_alignment_files)` you can produce plots of the alignments, to use for primer design and visualisation (see [Poster_introduction.pdf](https://github.com/VascoElbrecht/PrimerMiner/blob/master/Poster_introduction.pdf) for an example).
 
 6) In silico Primer evaluations are now available, see the [wiki](https://github.com/VascoElbrecht/PrimerMiner/wiki/6-Primer-evaluation-(in-silico)) for more information.
 

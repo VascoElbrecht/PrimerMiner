@@ -92,5 +92,5 @@ cat("#mito_gb2fasta_end\n\n", file=logfile, sep="", append=T)
 if (!is.null(no_coi_mito)){
 cat(paste("Mitogenomes in which no marker sequences were detected:", paste(no_coi_mito, collapse=", "), "\n\n"), file=logfile, sep="", append=T)
 message(" ")
-message(paste("Mitogenomes in which no marker sequences were detected:", paste(no_coi_mito, collapse=", ")), file=logfile, sep="", append=T)}
+message(paste("Mitogenomes in which no marker sequences were detected:", paste(no_coi_mito, collapse=", ")))}
 }
