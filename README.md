@@ -28,7 +28,7 @@ Align OTUs and extract region interesting for primer development e.g. with Genei
 5) Visualise alignments
 With `` you can produce plots of the alignments, to use for primer design and visualisation (see [Poster_introduction.pdf](https://github.com/VascoElbrecht/PrimerMiner/blob/master/Poster_introduction.pdf) for an example).
 
-6) Primer evaluations - coming soon!
+6) In silico Primer evaluations are now available, see the [wiki](https://github.com/VascoElbrecht/PrimerMiner/wiki/6-Primer-evaluation-(in-silico)) for more information.
 
 ## PrePrint for this package
 

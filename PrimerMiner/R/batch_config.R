@@ -13,7 +13,7 @@ if(sys=="Windows"){
 
 # config text
 text_conf <- c("# Configuration file for batch download",
-"Version = 0.3 # you might need to regenerate this config file with earlyer or later versions of PrimerMiner!",
+paste("Version =", packageVersion("PrimerMiner"), "# you might need to regenerate this config file with earlyer or later versions of PrimerMiner!"),
 "",
 "# General settings",
 "Taxon_table = \"path/to/csv/name_of_table.csv\" # csv containing taxa to download",
