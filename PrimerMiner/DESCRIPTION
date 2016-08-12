@@ -1,10 +1,10 @@
 Package: PrimerMiner
 Type: Package
-Title: Generate and visualise degenerated Primers from DNA sequence databases (BOLD & NCBI)
-Version: 0.3
-Date: 2016-03-30
+Title: PrimerMiner an R package for development and in silico validation of DNA metabarcoding primers
+Version: 0.7
+Date: 2016-08-12
 Author: Vasco Elbrecht
 Maintainer: Vasco Elbrecht <luckylion07@googlemail.com>
-Description: This package is designed to assist you with generating degenerated barcoding primers for the taxonomic group of interest. Extract the primer binding region from an alignment, and this package will visualise the nucleotide proportions, coverage and degenerated consensus.
+Description: PrimerMiner is a R based batch sequence downloader to design and verify metabarcoding primers. Sequences for a specified marker (e.g. COI) are obtained from NCBI and BOLD and clustered into Operational taxonomic units (OTU) to reduce bias introduced by over represented sequences in the data bases.
 License: GPL-3
-Depends: bold, XML, rentrez, seqinr
+Imports: bold, XML, rentrez, seqinr
