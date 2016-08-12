@@ -17,20 +17,20 @@ folders <- files[-readin]
 readin <- files[readin]}
 
 cat(paste("Reading in files matching ", pattern, ":", "\nFolders: ", paste(folders, collapse=", "), "\nFiles: " , paste(readin, collapse=", "), "\n", "Clipping: Left ", clip_left, " bp, Rigth ", clip_right, " bp\n\n", sep=""), file=logfile, sep="", append=T)
-print(paste("Clipping: Left ", clip_left, " bp, Rigth ", clip_right, " bp", sep="", collapse=""))
+message(paste("Clipping: Left ", clip_left, " bp, Rigth ", clip_right, " bp", sep="", collapse=""))
 
 if (overwrite){
 if(file.exists(save)){unlink(save)
-print(paste("deleted old fasta file: ", save, colapse="", sep="" ))
+message(paste("deleted old fasta file: ", save, colapse="", sep="" ))
 cat(paste("deleted old fasta file: ", save, "\n\n", colapse="", sep="" ), file=logfile, sep="", append=T)}
 }
 
 for (i in folders){
 readin <- c(list.files(path=i, pattern=pattern, full.names=T), readin)
 }
-print("Files writen in fasta")
-print(readin)
-print("")
+message("Files writen in fasta")
+message(readin)
+message(" ")
 
 cat(paste("Matching files which were written into ", save, ":", "\n", paste(readin, collapse=", ", sep=""), "\n\n"), file=logfile, sep="", append=T)
 

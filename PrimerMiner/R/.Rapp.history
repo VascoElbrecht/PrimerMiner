@@ -2301,3 +2301,8 @@ print("I'm done = )")#
 }#
 #prompt(evaluate_primer, "evaluate_primer.Rd")
 prompt(evaluate_primer, "evaluate_primer.Rd")
+message("")#
+message("-------------------")#
+message("")
+message(" ")
+print(paste("Downloaded ", length(search_results$ids)," mitogenomes for ", taxon[k], " in ", format(time, digits=2), ".", sep=""), file=logfile, sep="", append=T)

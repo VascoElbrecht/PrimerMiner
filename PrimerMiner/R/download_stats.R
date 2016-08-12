@@ -64,13 +64,13 @@ Vstat[i,-1] <- c(imp, derep, clust)
 }
 names(table)[3:5] <- c("BOLD", "GB", "Mito")
 write.table(table, save, sep="\t", row.names=F)
-print(paste("Download stats written in table ", save, sep=""))
+message(paste("Download stats written in table ", save, sep=""))
 
 
 # cluster stats
 if (cluster!=""){
 write.table(Vstat, file=cluster, sep="\t", row.names=F)
-print(paste("Cluster stats written in table ", cluster, sep=""))
+message(paste("Cluster stats written in table ", cluster, sep=""))
 
 Vstat[i,-1] <- c(imp, derep, cluster)
 }

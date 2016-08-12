@@ -83,7 +83,7 @@ cat(sequence_exp, file=paste(sub(pattern, "\\1", readin[k]), ".fasta", sep=""), 
 uni_mito_coi <- length(unique(sequence_exp[seq(2, length(sequence_exp), 2)])) } else {uni_mito_coi <- 0}
 
 
-print(paste("Converted ", length(range[-1])," mitogenome", if(length(range[-1])==1){""}else{"s"}," of ", readin[k], " to ", uni_mito_coi, " unique ", marker[1], " sequence", if(uni_mito_coi==1){""}else{"s"},".", sep=""))
+message(paste("Converted ", length(range[-1])," mitogenome", if(length(range[-1])==1){""}else{"s"}," of ", readin[k], " to ", uni_mito_coi, " unique ", marker[1], " sequence", if(uni_mito_coi==1){""}else{"s"},".", sep=""))
 cat(paste(readin[k],"\t", length(range[-1]), "\t", uni_mito_coi, "\n", sep=""), file=logfile, sep="", append=T)
 }
 
@@ -91,6 +91,6 @@ cat("#mito_gb2fasta_end\n\n", file=logfile, sep="", append=T)
 
 if (!is.null(no_coi_mito)){
 cat(paste("Mitogenomes in which no marker sequences were detected:", paste(no_coi_mito, collapse=", "), "\n\n"), file=logfile, sep="", append=T)
-print("")
-print(paste("Mitogenomes in which no marker sequences were detected:", paste(no_coi_mito, collapse=", ")), file=logfile, sep="", append=T)}
+message(" ")
+message(paste("Mitogenomes in which no marker sequences were detected:", paste(no_coi_mito, collapse=", ")), file=logfile, sep="", append=T)}
 }

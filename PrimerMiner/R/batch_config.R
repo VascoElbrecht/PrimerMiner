@@ -7,7 +7,7 @@ sys <- Sys.info()[['sysname']]
 
 if(sys=="Darwin"){sys <- "MacOSX"}
 if(sys=="Windows"){
-	print("WARNING: If you runing this package on a Windows PC, clustering will NOT work! Vsearch is used for OTU clustering and is not available for windows. Please run this package on a Mac or Linxs based system. Sorry for the inconvinience :(")
+	stop("WARNING: If you runing this package on a Windows PC, clustering will NOT work! Vsearch is used for OTU clustering and is not available for windows. Please run this package on a Mac or Linuxs based system. Sorry for the inconvinience :( - comand execution was stopped")
 }
 
 

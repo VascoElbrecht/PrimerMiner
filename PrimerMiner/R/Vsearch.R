@@ -35,8 +35,8 @@ derep <- as.numeric(sub("(.*)unique sequences.*", "\\1", derep))
 version <- temp[grep("vsearch", temp)]
 version <- sub("(.*)unique sequences.*", "\\1", version[1])
 
-print(paste("Rading", file, collapse=""))
-print(paste(sequ, "imput sequences ->", derep, "dereplicated sequences", collapse=""))
+message(paste("Rading", file, collapse=""))
+message(paste(sequ, "imput sequences ->", derep, "dereplicated sequences", collapse=""))
 
 # add ";size=1"
 A <- system2(vsearchpath, paste(" -derep_fulllength ", setwd, "/Vsearch/", filename, "_drep.fasta", " -output ", setwd, "/Vsearch/", filename, "_drep+1.fasta -sizeout", sep=""), stdout=F, stderr=F)
@@ -50,7 +50,7 @@ A <- system2(vsearchpath, paste(" -cluster_fast ", setwd, "/Vsearch/", filename,
 temp <- readLines(paste(setwd, "/Vsearch/temp.txt", sep=""))
 clust_no <- temp[grep("Clusters: ", temp)]
 clust_no <- sub("Clusters: (.*) Size.*", "\\1", clust_no)
-print(paste("Clusters: ", clust_no, collapse=""))
+message(paste("Clusters: ", clust_no, collapse=""))
 
 
 cat(paste(version, "\n\n", sep=""), file=logfile, sep="", append=T)

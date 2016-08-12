@@ -44,12 +44,12 @@ Sys.sleep(0.5)
 
 meep <- read.fasta(paste(folder_path, taxon[k], "_GB.fasta", sep=""))
 if (length(meep)!=length(search_results$ids)){
-paste("WARNING: Something went wrong with the download. Numer of files in GB does not match number of downloaded files!")
+warning("WARNING: Something went wrong with the download. Numer of files in GB does not match number of downloaded files!")
 cat(paste("\nWARNING: Something went wrong with the download. Numer of files in GB does not match number of downloaded files!\n\n"), file=logfile, sep="", append=T)}
 
 }
 time <- Sys.time() - time
-print(paste("Downloaded ", length(search_results$ids)," sequences for ", taxon[k], " in ", format(time, digits=2), " from NCBI.", sep=""))
+message(paste("Downloaded ", length(search_results$ids)," sequences for ", taxon[k], " in ", format(time, digits=2), " from NCBI.", sep=""))
 cat(paste(taxon[k],"\t", length(search_results$ids), "\t", format(time, digits=2), "\n", sep=""), file=logfile, sep="", append=T)
 }
 

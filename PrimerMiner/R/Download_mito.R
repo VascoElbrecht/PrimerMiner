@@ -35,7 +35,7 @@ download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db
 }
 
 time <- Sys.time() - time
-print(paste("Downloaded ", length(search_results$ids)," mitogenomes for ", taxon[k], " in ", format(time, digits=2), ".", sep=""), file=logfile, sep="", append=T)
+print(paste("Downloaded ????????", length(search_results$ids)," mitogenomes for ", taxon[k], " in ", format(time, digits=2), ".", sep=""), file=logfile, sep="", append=T)
 cat(paste(taxon[k],"\t", length(search_results$ids), "\t", format(time, digits=2), "\n", sep=""), file=logfile, sep="", append=T)
 
 }

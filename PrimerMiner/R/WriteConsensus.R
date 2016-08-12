@@ -63,13 +63,13 @@ letter[j] <- which(paste(export[j,], collapse="")==compare)
 # check if file exists
 if(!file.exists(file)){
 cat("Type\tprimer\tN\tcov\tsd\theadline\tfile_used", file=file, sep="\n")
-print(paste("File ", file, " does not exist and was therfore created!", sep=""))
+message(paste("File ", file, " does not exist and was therfore created!", sep=""))
 }
 
 sequence <- paste(upac$ID[letter], sep="", collapse="")
 out <- paste("Ref", sequence, "NA", "NA", "NA", "Consensus", "NA", sep="\t")
 cat(out, file=file, append=T, sep="\n")# write file
-print(paste("The consensus sequence  ", sequence, " was added to the file ", file, "!", sep=""))
+message(paste("The consensus sequence  ", sequence, " was added to the file ", file, "!", sep=""))
 
 }
 

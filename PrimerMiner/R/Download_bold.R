@@ -26,7 +26,7 @@ cat(exp, file=paste(folder_path, taxon[k], "_BOLD.fasta", sep=""), append=T)
 }
 }
 time <- Sys.time() - time
-print(paste("Downloaded ", length(data)," sequences for ", taxon[k], " in ", format(time, digits=2), " from BOLD.", sep=""))
+message(paste("Downloaded ", length(data)," sequences for ", taxon[k], " in ", format(time, digits=2), " from BOLD.", sep=""))
 cat(paste(taxon[k],"\t", length(data), "\t", format(time, digits=2), "\n", sep=""), file= logfile, sep="", append=T)
 }
 cat("#Bold_data_end\n\n", file= logfile, sep="", append=T)

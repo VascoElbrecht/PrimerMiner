@@ -36,10 +36,10 @@ done <- file.exists(paste(subFolder, "/", "done.txt", sep=""))
 if(done){
 download_and_cluster <- F # DON'T REDOWNLOAD DATA
 time <- readLines(paste(subFolder, "/", "done.txt", sep=""), warn=F)
-print(paste("Data for *", subFolder, "* was already downloaded and clustered on ", time[1], " and will thus be skipped. Turn Skip_if_complete to F, if you like data to be redownloaded and reclustered or delete the file done.txt in the folder ", subFolder,  sep=""))
-print("")
-print("-------------------")
-print("")
+message(paste("Data for *", subFolder, "* was already downloaded and clustered on ", time[1], " and will thus be skipped. Turn Skip_if_complete to F, if you like data to be redownloaded and reclustered or delete the file done.txt in the folder ", subFolder,  sep=""))
+message(" ")
+message("-------------------")
+message(" ")
 }
 }
 
@@ -52,11 +52,11 @@ if (download_bold){Download_BOLD(taxa, folder= subFolderPath, setwd=subFolder)}
 if (download_GB){Download_GB(taxa, folder= subFolderPath, marker=Marker, maxlength= maxlength_GB, custom_query= custom_query_GB, setwd=subFolder)}
 if (download_mt){Download_mito(taxa, folder= subFolderPath, minlength= minlength_mt, maxlength= maxlength_mt, custom_query = custom_query_mt, setwd=subFolder)
 	if (length(list.files(subFolderPath, pattern="mito.gb$"))>0){
-		print("")
+		message(" ")
 		Mito_GB2fasta(subFolderPath, marker=Marker, add= add_mt, rm_dup= rm_dup, no_marker= no_marker, setwd=subFolder)}
 }
 }
-print("")
+message(" ")
 # merge files!
 if (Merge_and_Cluster_data){
 
@@ -92,15 +92,15 @@ all_fasta <- paste(subFolder, "/", subFolder, "_all.fasta", sep="")
 Merge_fasta(all_file_TF, save=all_fasta , clip_left=0, clip_right=0, setwd=subFolder)
 
 
-print("")
+message(" ")
 
 
 all_fasta <- paste(subFolder, "_all.fasta", sep="")
 
 Clustering(all_fasta, vsearchpath= vsearchpath, id=id, threshold=threshold, setwd=subFolder)
-print("")
-print("-------------------")
-print("")
+message(" ")
+message("-------------------")
+message(" ")
 
 
 cat(file=paste(subFolder, "/", "done.txt", sep=""), paste(Sys.time()))
@@ -116,9 +116,9 @@ if(summstats){
 download_stats(table)
 }
 
-print("")
-print("We are all done here. Please use a porgram like Geneious to create sequence  alignments. reffer to the manual on GitHub for further instructions!")
-print("https://github.com/VascoElbrecht/PrimerMiner")
+message(" ")
+message("We are all done here. Please use a porgram like Geneious to create sequence  alignments. reffer to the wiki on GitHub for further instructions!")
+message("https://github.com/VascoElbrecht/PrimerMiner/wiki")
 } # function end
 
 

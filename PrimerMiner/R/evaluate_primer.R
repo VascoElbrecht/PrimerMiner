@@ -4,12 +4,12 @@ evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T
 # load defults or load csv
 
 
-if(is.null(mm_position)){print("Pleas supply a table indicating penalty scorres for the mismatch possitions. Please see http://www. XXXX for details")
+if(is.null(mm_position)){stop("Pleas supply a table indicating penalty scorres for the mismatch possitions. Please see https://github.com/VascoElbrecht/PrimerMiner/wiki/6-Primer-evaluation-(in-silico) for details")
 stop()} else {pos <- read.csv(mm_position, header=F)}
 
 if(is.null(mm_type)){print("Mismatch types are ignored.")} else {
 type <- read.csv(mm_type)
-print(paste("Mismatch types are considered using the table:", mm_type, sep="") )
+message(paste("Mismatch types are considered using the table:", mm_type, sep="") )
 }
 
 
@@ -49,8 +49,8 @@ start <- temp[1]
 stop <- temp[2]
 
 if(stop+1 - start == nchar(primer_sequ)){ # check primer length
-print(paste(primer_sequ, " is ", nchar(primer_sequ), "bp long and length matches the propposed region" ,sep=""))
-} else {print("WARNING: length of the given region does NOT match the primer length. The script will crash now!")}
+message(paste(primer_sequ, " is ", nchar(primer_sequ), "bp long and length matches the propposed region" ,sep=""))
+} else {warning("WARNING: length of the given region does NOT match the primer length. The script will crash now!")}
 
 primer <- strsplit(primer_sequ, "")[[1]] # spit primer into nuceleotides
 
@@ -207,9 +207,9 @@ row.names(scores) <- 1:nrow(scores)
 
 if(primer_region_1){scores <- scores[1,]}# remove duplicated row, as only one sequence
 
-if(!is.null(save)){write.csv(scores, save)} else {print("no save file given!")}# save
+if(!is.null(save)){write.csv(scores, save)} else {stop("Problem: no save file given!")}# save
 
-print("I'm done = )")
+message("I'm done = )")
 
 }
 
