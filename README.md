@@ -32,8 +32,7 @@ With `plot_alignments(path_to_fasta_alignment_files)` you can produce plots of t
 
 ## PrePrint for this package
 
-Elbrecht & Leese (2016). https://peerj.com/preprints/2044/
-
+[Elbrecht & Leese (2016). PrimerMiner: an R package for development and in silico validation of DNA metabarcoding primers - PeerJ PrePrints](https://peerj.com/preprints/2352/?td=wk)
 
 ## Contact
 
