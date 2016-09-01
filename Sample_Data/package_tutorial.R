@@ -32,7 +32,7 @@ dev.off()
 
 # in silico primer evaluation
 
-evaluate_primer("1 COi alignments/01_Plecoptera_folmer.fasta", "GCYCCHGAYATRGCHTTYCC", 218, 237, save="save_evaluation_table.csv", mm_position ="../primer_scoring/Position_v1.csv", adjacent=2, mm_type="../primer_scoring/Type_v1.csv") 
+evaluate_primer("1 COi alignments/01_Plecoptera_folmer.fasta", "GCYCCHGAYATRGCHTTYCC", 218, 237, save="save_evaluation_table.csv", mm_position ="primer_scoring/Position_v1.csv", adjacent=2, mm_type="primer_scoring/Type_v1.csv") 
 
 
 
