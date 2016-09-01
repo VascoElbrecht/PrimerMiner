@@ -29,7 +29,7 @@ for (i in folders){
 readin <- c(list.files(path=i, pattern=pattern, full.names=T), readin)
 }
 message("Files writen in fasta")
-message(readin)
+message(paste(readin, collapse=" "))
 message(" ")
 
 cat(paste("Matching files which were written into ", save, ":", "\n", paste(readin, collapse=", ", sep=""), "\n\n"), file=logfile, sep="", append=T)
