@@ -1,11 +1,12 @@
 # 160905 - strip gaps
 
-selectivetrim <- function(read, write, trimL=25, trimR=26, gaps=0.10){
+selectivetrim <- function(read, write, trimL=25, trimR=26, gaps=0.10, minsequL=NA){
 
 data <- read.fasta(read, as.string=T, forceDNAtolower=F) # read file
 data <- unlist(data)
 sequnames <- names(data)
 
+message(paste("Processing", read, collapse=""))
 
 left <- as.vector(nchar(sub("(-*).*", "\\1", data)))
 right <- as.vector(nchar(sub(".*[ACGTRYSWKMBDHVN](-*)", "\\1", data)))
@@ -104,7 +105,21 @@ for (i in 1:nrow(data)){
 meep[i] <- paste(data[i,], collapse="")
 }
 
+# count number of gaps / Ns on edges
+if(is.na(minsequL)){ # no min length
 write.fasta(sequences=as.list(meep), names=as.list(sequnames), write)
+} else {
+
+# min length
+rigth <- as.vector(nchar(sub(".*[ACGTRYSWKMBDHV]([N-]*)", "\\1", meep)))
+left <- as.vector(nchar(sub("(-*N*).*", "\\1", meep)))
+sequlength <- nchar(meep[1]) - c(rigth+left)
+
+write.fasta(sequences=as.list(meep)[sequlength>minsequL], names=as.list(sequnames)[sequlength>minsequL], write)
+
+message(paste("Sequences discrated because they are ", minsequL, " bp or shoerter: ", length(sequlength)-sum(sequlength>minsequL), collapse="", sep="", " (", round(100-(sum(sequlength>minsequL)/length(sequlength))*100, digits=1), "%)"))
+message(" ")
+}
 
 }
 
