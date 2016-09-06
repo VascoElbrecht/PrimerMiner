@@ -1,4 +1,7 @@
-plot_alignments <- function(files=c("List of files"), Order_names=NULL, start=NULL, end=NULL, threshold=0.1){
+plot_alignments <- function(files=c("List of files"), Order_names=NULL, start=NULL, end=NULL, threshold=0.1, lines=1){
+
+if (is.numeric(lines)){if(lines==0){deletebox <- F} else {deletebox <- T}} else {deletebox <- F}
+
 
 entropy <- function(fasta){
 {
@@ -38,6 +41,7 @@ hey <- colSums(colu)
 
 # shanon entropy
 p <- hey / sum(hey)
+p[is.na(p)] <- 0
 meep <- rbind(meep, c("ID"=i, p))
 
 }
@@ -71,7 +75,7 @@ padd <- cbind(0, list[[k]][start:end,2:5])
 
 for (i in 1:nrow(padd)){
 for (m in 2:5){
-rect(i-0.5, sum(padd[i,1:m-1])+3+1*k, i+0.5, sum(padd[i, 1:m])+3+1*k, col=plotcol[m-1])}
+rect(i-0.5, sum(padd[i,1:m-1])+3+1*k, i+0.5, sum(padd[i, 1:m])+3+1*k, col=plotcol[m-1], border=deletebox, lwd=lines)}
 }
 text(-0.5, 3.5+1*k, Order_names[k], pos=2)
 
@@ -96,7 +100,7 @@ m <- 5
 
 padd <- c(0, p*2)
 for (m in 2:5){
-rect(h-0.5, sum(padd[1:m-1])+1.75, h+0.5, sum(padd[1:m])+1.75, col=plotcol[m-1])}
+rect(h-0.5, sum(padd[1:m-1])+1.75, h+0.5, sum(padd[1:m])+1.75, col=plotcol[m-1], border=deletebox, lwd=lines)}
 
 
 rect(h-0.5, 0, h+0.5, 0.6, col= plotcol[which.max(p)], border=NA)
@@ -113,7 +117,7 @@ rect(h-0.5, 0.8, h+0.5, 1.4, col= covcol[length(which(p>threshold))], border=NA)
 
 }
 
-axis(side=1, at=seq(0, abs(start-end-1), 10), lab=seq(start-1, end, 10), las=2)
+axis(side=1, at=seq(0, abs(start-end-1), 10), lab=seq(start-1, end, 10), las=1)
 axis(side=1, at=seq(5, end, 10), lab=F)
 
 }
