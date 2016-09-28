@@ -32,7 +32,7 @@ exp <- rbind(exp, cbind(length(temp), sum(temp!="-")))
 keep <- exp[,2]/exp[,1]
 data <- data[,(keep>=0.10)]
 
-message(paste("Number of bases", lengtbefore, "before, removing gaps with >=", gaps, "gaps -> alignment length now", ncol(data), "bp", collapse=""))
+message(paste("Number of bases", lengtbefore, "before, removing gaps with >=", gaps, "gaps -> alignment length now", ncol(data)-1, "bp", collapse=""))
 }
 
 # apply selective trimming!
