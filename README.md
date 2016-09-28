@@ -23,7 +23,7 @@ Create a csv table containing the groups (and their subgroups if you want to dow
 To start the batch download, run `batch_download("taxa_small.csv", "config.txt")` giving the name of the taxon table and configuration file.
 
 4) Bild alignments
-Align OTUs and extract region interesting for primer development e.g. with Geneious and MAFFT. Export the aligned sequences as a fasta file
+Align OTUs and extract region interesting for primer development e.g. with Geneious and MAFFT. Export the aligned sequences as a fasta file. You can apply selective trimming on the edges to remove primer sequences from the alignment as well as remove gaps from the alignemnt with the [`selectivetrim()`](https://github.com/VascoElbrecht/PrimerMiner/wiki/4-Making-alignments-(--trimming-and-gap-removal)#remove-gaps-from-the-sequence--add-selective-trimming) function.
 
 5) Visualise alignments
 With `plot_alignments(path_to_fasta_alignment_files)` you can produce plots of the alignments, to use for primer design and visualisation (see [Poster_introduction.pdf](https://github.com/VascoElbrecht/PrimerMiner/blob/master/Poster_introduction.pdf) for an example).

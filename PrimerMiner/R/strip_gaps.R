@@ -1,6 +1,6 @@
 # 160905 - strip gaps
 
-selectivetrim <- function(read, write, trimL=25, trimR=26, gaps=0.10, minsequL=NA){
+selectivetrim <- function(read, write, trimL=25, trimR=26, gaps=0.10, minsequL=100){
 
 data <- read.fasta(read, as.string=T, forceDNAtolower=F) # read file
 data <- unlist(data)
