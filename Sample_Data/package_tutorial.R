@@ -9,6 +9,11 @@ install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
 # load the package into R
 library("PrimerMiner")
 
+# quick guide inside R, further documentation in the Github Wiki
+# https://github.com/VascoElbrecht/PrimerMiner/wiki
+browseVignettes("PrimerMiner")
+
+
 # Set path to sample data
 setwd("Sample_Data")
 
