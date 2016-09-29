@@ -34,7 +34,6 @@ WriteConsensus(file, export = file, threshold = 0)
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+\seealso{\code{\link{batch_download}}}
+
 \examples{}
