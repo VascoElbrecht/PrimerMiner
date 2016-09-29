@@ -48,7 +48,7 @@ PrimerMiner applies the penalty score in the following order:
 1. Increasing of penalties for adjacent mismatches
 1. Reduction of penalty if wobble bases are present in the target sequence, which partially match the primer.
 
-To get started with evaluation your first primer pair, follow the instructions in the chapter: **[_in silico_ evaluation](Batchdownload.html)**
+To get started with evaluation your first primer pair, follow the instructions in the chapter: **[_in silico_ evaluation](in_silico_evaluation.html)**
 
 
 ## Additional support and resources

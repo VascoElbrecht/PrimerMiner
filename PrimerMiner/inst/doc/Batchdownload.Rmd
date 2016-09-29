@@ -9,3 +9,109 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+![PrimerMiner can be used to obtain and process barcode sequences for a specific marker (e.g. COI). Sequences are processes mostly automated, and can be visualised after alignments are generated (with e.g. Geneious). Figure generated with `plot_alignments()`](alignment_plot.png)
+
+
+
+
+This tutorial can be followed with the `package_tutorial.R` in the folder `Sample_Data` which comes bundled with the PrimerMiner package. We will download sequence data for just a few taxa, and then continue with processing an visualising alignments of 5 freshwater groups (folder `1 COI alignments (unprocessed)`). Please change the working directory to;
+
+```{r, eval = F}
+setwd("your/path/to/PrimerMiner/Sample_Data")
+```
+
+
+
+## Batch downloading sequence data
+
+We start by specifying the working directory. I recommend to use the folder `Sample_Data` that comes with PrimerMiner package, as it already contains the taxa table we want to download sequences for.
+
+PrimerMiner **needs** 2 files for batch downloading: A taxa table and and configuration file (to modify downloading and processing options).
+
+The taxa table `taxa_small.csv` in the sample data contains only a small taxonomic subset, usually you would download more data. Make sure the table is `,` separated! In the first column you specify the groups for which you would want to download data, typically Order level. If you like you can specify a subset in the second column, in this case all Families specified here are downloaded and then clustered in the group Coleoptera.
+
+**Important:** Downloading Subfamily or Genus data is not recommended, as these can cause several hits in the databases if the names are not unique, causing problems.
+
+
+Order           Family
+-----------     ------
+Coleoptera	
+	              Georissidae
+               	Gyrinidae
+              	Haliplidae
+              	Spercheidae
+Perlidae	
+Nemouridae	
+
+Table: table_small.csv
+
+With this table PrimerMiner will create 3 folders with the fllowing data:
+* Data for Order Coleoptera, but only for the 4 specified families! (not all available data for Coleoptera)
+* Data for the Family Perlidae
+* Data for the Family Nemouridae
+
+
+Next we need a configuration file, where we can specify additional options like which databases to use or which marker to download (see PrimerMiner wiki or the config file it self for documentation of options!). The configuration file can easily be generated with the command `batch_config("Filename.txt")`. 
+
+```{r, eval = F}
+batch_config("config.txt")
+```
+
+You can now change and specify downloading and  data processing options in the `config.txt` file. 
+
+The configuration file and taxa csv table will next be used with the command `batch_download("taxa_table.csv", "configurationfile.txt")`, which starts the batch download and clustering process.
+
+```{r, eval = F}
+batch_download("taxa_small.csv", "config.txt")
+```
+
+R will download sequence data for all groups specified in `taxa_small.csv` using the options in `config.txt`. 
+
+**Important:** You need a quick internet connection for downloading sequence data with PrimerMiner, otherwise you might be affected by time outs from the server APIs! If PrimerMiner runs into errors, try the downloading process again.
+On default settings if PrimerMiner was finished with one group, it will not redownload all data but restart downloading where the problem on the server site did occur.
+
+PrimerMiner will keep you updated of the downloading process and tell you when it's done with a `We are all done here.`!
+
+Additionally the statistics you could view in the R console is saved in csv files, with ALL raw data being available in the folder of each respective group.
+
+
+## Building and visualising alignments
+
+Above we have downloaded some example data. Next we have to align these sequences. We did specifically choose to not do this with PrimerMiner, because sequence alignments often require visual inspections and a little bit of modification in the alignment parameters.
+
+We would recommend to use a program like [Geneious](http://www.geneious.com/) to first align all mitochondrial reads, and then map all OTU consensus sequences against the mitochondrial consensus sequence. Pleas refer to the [PrimerMiner wiki](https://github.com/VascoElbrecht/PrimerMiner/wiki/4-Making-alignments-(--trimming-and-gap-removal)#mapping-reads-to-reference-with-geneious) for recommendations on how to generate these mappings.
+
+For simplicity, we are going to use 5 sequence alignments (subsets) generated in Geneious from the sample data `1 COI alignments (unprocessed)`. These alignments still contain gaps caused by a few unreliable sequences and primers were not trimmed away. Thus we process them with the ` selectivetrim` function. 
+
+First were going to get the names of the fasta files and prepare a new name for saving them in a new folder.
+
+```{r, eval = F}
+fastafiles <- list.files("1 COI alignments (unprocessed)", full.names=T)
+fastafiles_export <- paste("2 COI alignments (processed)", list.files("1 COI alignments (unprocessed)"), sep="/")
+```
+
+Then we use a loop to process all fasta files.
+
+```{r, eval = F}
+for (i in 1:length(fastafiles)){
+selectivetrim(fastafiles[i], fastafiles_export[i], trimL=25, trimR=26, gaps=0.10, minsequL=100)
+}
+```
+
+In this case the `selectivetrim` function will remove gaps in the alignment with not at least 10% nucleotides, as well as applying selective clipping in the primer binding regions, which trimm away nucleotides in the primer region but not the part amplified by the primers (as this internal region in the case of e.g. COI is rarely affected by primers which wehere not rimmed away). It is also recommended to discard sequences which are short with `minsequL`.
+
+Make sure that all alignments are aligned to each other. If necessary play with the `gaps` value if to much or to little gaps are removed, and verify your alignments with Geneious.
+
+
+The now processed sequences in the folder `2 COI alignments (processed)` can now be used in other primer design software or visualised for designing primers manually using the `plot_alignments` function. With the following command the plot is saved as a pdf file.
+
+```{r, eval = F}
+alignments <- list.files("2 COI alignments (processed)", full.name=T)
+
+pdf("plot_alignments.pdf", height=4, width=100)
+plot_alignments(alignments, Order_names=gsub(".*./._(.*)_.*", "\\1", alignments))
+dev.off()
+```
+
+We recommend printing the visualised sequence alignment, and sticht the paper together to a 2 m long "hard copy" and mark potentially suitable regions.
+

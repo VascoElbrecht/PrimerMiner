@@ -1,0 +1,26 @@
+---
+title: "_In silico_ primer evaluation"
+author: "Vasco Elbrecht"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{_In silico_ primer evaluation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
