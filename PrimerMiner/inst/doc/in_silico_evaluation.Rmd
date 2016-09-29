@@ -9,18 +9,34 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+PrimerMiner allows you to evaluate primers _in silico_ against a sequence alignment. In the sample data we are comparing two primers against a subset of Plecoptera sequences (which were downloaded an clustered). It is highly recommended evaluate primers against OTU sequences as produced by PrimerMiner, to reduce biases by overrepresented sequences in databases.
+
+For evaluating primers you will need 3 things:
+
+1. A sequences alignment in the fasta format (without gaps) which you want to evaluate the primers against.
+1. A scoring table giving position based penalty scores `primer_scoring/Position_v1.csv`.
+1. A scoring table giving mismatch typ specific adjustments of penalty scores `Primer_scoring/Type_v1.csv`
+
+Both needed tables are available in the sample data. Primers are evaluated with the `evaluate_primer` function. The package does currently not perform any auto matching of the primers to the sequences alignment, thus you have to indicate where the primer starts and ends, as well as if it works in forward direction or reverse. (We might add automatic matching in the future).
+
+Here you see 2 examples of primer evaluation:
+
+```{r, eval = F}
+setwd("your/path/to/PrimerMiner/Sample_Data")
+
+evaluate_primer("primer_scoring/01_Plecoptera_subset.fasta", "GGTCAACAAATCATAAAGATATTGG", 1, 25, save="save_evaluation_table_LCO.csv", mm_position ="primer_scoring/Position_v1.csv", adjacent=2, mm_type="primer_scoring/Type_v1.csv") 
+
+evaluate_primer("primer_scoring/01_Plecoptera_subset.fasta", "ARYATDGTRATDGCHCCDGC", 585, 604, save="save_evaluation_table_BR1.csv", mm_position ="primer_scoring/Position_v1.csv", adjacent=2, mm_type="primer_scoring/Type_v1.csv", forward=F) 
+```
+
+You have to provide the fasta file, primer sequence, start and stop of the primer bind, as well as mismatch type and position files and a name to save the error scores with (as csv tables). 
 
 
+If you want you can compare the primer evaluation tables of forward + reverse primers with the function `primer_threshold` to estimate how many target sequences will be likely amplified based on a certain threshold. 
 
+```{r, eval = F}
+primer_threshold("save_evaluation_table_LCO.csv", "save_evaluation_table_BR1.csv", threshold=120)
+```
 
-
-
-
-
-
-
-
-
-
-
+We also recommend to use the penalty score tables for some more sophisticated evaluations if you like, as the "failed or worked" assessment on a fixed threshold is a bit arbitrary. 
 
