@@ -9,3 +9,69 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+![PrimerMiner can be used to obtain and process barcode sequences for a specific marker (e.g. COI). Sequences are processes mostly automated, and can be visuallized after alignments are generated (with e.g. Geneious). Figure generated with `plot_alignments()`](alignment_plot.png)
+
+
+
+
+This tutorial can be followed with the `package_tutorial.R` in the folder `Sample_Data` which comes bundled with the PrimerMiner package. We will download sequence data for just a few taxa, and then continue with pocessing an visualizing alignments of 5 freshwater groups (folder `1 COI alignments (unprocessed)`). Please change the working directory to;
+
+```{r, eval = F}
+setwd("your/path/to/PrimerMiner/Sample_Data")
+```
+
+
+
+## Batch downloading sequence data
+
+We start by specifing the working directory. I recommend to use the folder `Sample_Data` that comes with PrimerMiner package, as it already contains the taxa table we want to download sequences for.
+
+PrimerMiner **needs** 2 files for batch downloading: A taxa table and and configuration file (to modify downloading and processing options).
+
+The taxa table `taxa_small.csv` in the sample data contains only a small taxonomic subset, usually you would download more data. Make sure the table is `,` seperated! In the first column you speciy the groups for which you would want to download data, typically Order level. If you like you can specify a subset in the secon column, in this case all Families specified here are downloaded and then clustered in the group Coleoptera.
+
+**Important:** Downloading Subfamily or Genus data is not recommended, as tese can cause several hits in the databases if the names are not usique, causing problems.
+
+
+Order           Family
+-----------     ------
+Coleoptera	
+	              Georissidae
+               	Gyrinidae
+              	Haliplidae
+              	Spercheidae
+Perlidae	
+Nemouridae	
+
+Table: table_small.csv
+
+With this table PrimerMiner will create 3 folders with the floowing data:
+* Data for Order Coleoptera, but only for the 4 specified families! (not all available data for Coleoptera)
+* Data for the Family Perlidae
+* Data for the Family Nemouridae
+
+
+Next we need a configuration file, where we can specify addtional options like which databases to use or which marker to download (see PrimerMiner wiki or the config file it self for documentation of options!). The configuration file can easily be generated with the command `batch_config("Filename.txt")`. 
+
+```{r, eval = F}
+batch_config("config.txt")
+```
+
+You can now change and specify downloading and  data processing options in the `config.txt` file. 
+
+The configuration file and taxa csv table will next be used with the comand `batch_download("taxa_table.csv", "configurationfile.txt")`, which startd the batchdownload and clustering process.
+
+```{r, eval = F}
+batch_download("taxa_small.csv", "config.txt")
+```
+
+R will download sequene data for all groups specified in `taxa_small.csv` using the options in `config.txt`. 
+
+**Important:** You need a quick internet connection for downloading sequence data with PrimerMiner, otherwise you might be affected by time outs from the server APIs! If PrimerMiner runs into errors, try the downloading process again.
+On defult settings if PrimerMiner was finished with one group, it will not redownload all data but restart downloading where the problem on the server site did occur.
+
+
+
+
+
+
