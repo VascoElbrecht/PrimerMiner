@@ -1,7 +1,7 @@
 Package: PrimerMiner
 Type: Package
 Title: PrimerMiner an R package for development and in silico validation of DNA metabarcoding primers
-Version: 0.8
+Version: 0.9
 Date: 2016-09-28
 Author: Vasco Elbrecht
 Maintainer: Vasco Elbrecht <luckylion07@googlemail.com>
