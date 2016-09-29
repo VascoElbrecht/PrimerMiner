@@ -1,0 +1,14 @@
+# Feel free to contact Vasco Elbrecht if you run into issues (twitter: @luckylionde). Enjoy!#
+#
+# set the path to the PrimerMinder folder you just downloaded#
+setwd("~/Desktop/PrimerMiner-master 5")#
+#
+# install the PrimerMiner package icl dependencies#
+install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)#
+#
+# load the package into R#
+library("PrimerMiner")#
+#
+# quick guide inside R, further documentation in the Github Wiki#
+# https://github.com/VascoElbrecht/PrimerMiner/wiki#
+browseVignettes("PrimerMiner")

@@ -1,0 +1,13 @@
+---
+title: "Welcome to PrimerMiner"
+author: "Vasco Elbrecht"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Welcome to PrimerMiner}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+PrimerMiner is an easy batch sequence downloader, which applies clustering to barcode sequences, to have optimal reference data for metabarcoding primer development.
+
