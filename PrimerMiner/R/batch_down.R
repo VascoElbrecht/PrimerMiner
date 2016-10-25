@@ -1,7 +1,7 @@
 batch_download <- function(table, config){
 
 
-source("config.txt")
+source(config)
 if(is.data.frame(table)){} else {table <- read.csv(table, sep= Taxon_sep, stringsAsFactors=F)}
 
 table[2][is.na(table[2])] <- "" # replace NAs if only orders are given
