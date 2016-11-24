@@ -31,7 +31,7 @@ cat(file=paste(folder_path, taxon[k], "_mito.gb", sep="")) # overwrite old files
 
 
 for (i in 1:length(search_results$ids)){
-download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
 }
 }
 
