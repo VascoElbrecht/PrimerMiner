@@ -1,9 +1,10 @@
 # Feel free to contact Vasco Elbrecht if you run into issues (twitter: @luckylionde). Enjoy!
 
 # set the path to the PrimerMinder folder you just downloaded
-setwd("~/Desktop/PrimerMiner-master 5")
+setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner")
 
 # install the PrimerMiner package icl dependencies
+#install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)
 install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
 
 # load the package into R

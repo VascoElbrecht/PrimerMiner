@@ -16,8 +16,8 @@ if (length(readin)==0){
 folders <- files[-readin]
 readin <- files[readin]}
 
-cat(paste("Reading in files matching ", pattern, ":", "\nFolders: ", paste(folders, collapse=", "), "\nFiles: " , paste(readin, collapse=", "), "\n", "Clipping: Left ", clip_left, " bp, Rigth ", clip_right, " bp\n\n", sep=""), file=logfile, sep="", append=T)
-message(paste("Clipping: Left ", clip_left, " bp, Rigth ", clip_right, " bp", sep="", collapse=""))
+cat(paste("Reading in files matching ", pattern, ":", "\nFolders: ", paste(folders, collapse=", "), "\nFiles: " , paste(readin, collapse=", "), "\n", "Clipping: Left ", clip_left, " bp, Right ", clip_right, " bp\n\n", sep=""), file=logfile, sep="", append=T)
+message(paste("Clipping: Left ", clip_left, " bp, Right ", clip_right, " bp", sep="", collapse=""))
 
 if (overwrite){
 if(file.exists(save)){unlink(save)

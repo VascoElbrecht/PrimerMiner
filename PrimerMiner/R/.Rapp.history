@@ -2314,3 +2314,29 @@ message(paste(readin, sep=" "))
 message(paste(readin, sep="_"))
 message(paste(readin, sep="", collapse=" "))
 message(paste(readin, collapse=" "))
+library("PrimerMiner")
+taxon <- "Plecoptera"
+k <- 1
+maxlength <- 19999999
+taxon <- "Plecoptera"#
+k <- 1#
+minlength<- 500#
+maxlength <- 19999
+searchQ <- paste(taxon[k],"[Organism] AND mitochondrion[filter] AND genome AND ", minlength, ":", maxlength ,"[Sequence Length]", sep="")
+searchQ
+search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999)
+search_results
+length(search_results$ids)
+search_results$ids
+paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T)
+paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep="")
+i <- 1
+i <- 1
+paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep="")
+folder_path
+folder_path <- "~/Desktop/"
+download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T)}
+download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T)
+download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=F)
+?download.file
+download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")

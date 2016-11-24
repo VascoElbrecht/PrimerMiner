@@ -17,6 +17,7 @@ cat("Taxon\tSequences\tdownl_time\n", file=logfile, sep="", append=T)
 for (k in 1:length(taxon)){
 time <- Sys.time() # get time
 
+
 # download IDs
 if (is.null(custom_query)){
 searchQ <- paste(taxon[k],"[Organism] AND mitochondrion[filter] AND genome AND ", minlength, ":", maxlength ,"[Sequence Length]", sep="")
@@ -30,8 +31,8 @@ cat(file=paste(folder_path, taxon[k], "_mito.gb", sep="")) # overwrite old files
 
 
 for (i in 1:length(search_results$ids)){
-download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T)}
-
+download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+}
 }
 
 time <- Sys.time() - time
