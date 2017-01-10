@@ -31,9 +31,12 @@ cat(file=paste(folder_path, taxon[k], "_mito.gb", sep="")) # overwrite old files
 
 
 for (i in 1:length(search_results$ids)){
-download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile="temp.txt", mode="a", quiet=T, method="curl")
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T, sep="\n")
 }
+glumandaoderso <- file.remove("temp.txt")
 }
+
 
 time <- Sys.time() - time
 message(paste("Downloaded ", length(search_results$ids)," mitogenomes for ", taxon[k], " in ", format(time, digits=2), ".", sep=""))
