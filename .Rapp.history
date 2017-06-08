@@ -12,60 +12,109 @@ library("PrimerMiner")#
 # quick guide inside R, further documentation in the Github Wiki#
 # https://github.com/VascoElbrecht/PrimerMiner/wiki#
 browseVignettes("PrimerMiner")
-setwd("~/Desktop/PrimerMiner-0.10")
+setwd("~/Desktop/PrimerMiner-0.11 2/Sample_Data")
 library("PrimerMiner")
-setwd("Sample_Data")
-batch_config("config.txt")
-install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
-# set the path to the PrimerMinder folder you just downloaded#
-setwd("~/Desktop/PrimerMiner-0.10")#
-#
-# install the PrimerMiner package icl dependencies#
-install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
-install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)
-install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
-library("PrimerMiner")
-setwd("Sample_Data")
-batch_config("config.txt")
-setwd("Sample_Data")
-batch_config("config.txt")
-list.files("")
-setwd("~/Desktop/PrimerMiner-0.10")
-list.files("")
-list.files()
-setwd("Sample_Data")
-list.files()
-batch_download("taxa_small.csv", "config.txt")
-setwd("~/Desktop/PrimerMiner-master 5")
-setwd("Sample_Data")
-setwd("~/Desktop/PrimerMiner-0.10")
-setwd("Sample_Data")
-batch_download("taxa_small.csv", "config.txt")
-library("PrimerMiner")
-batch_download("taxa_small.csv", "config.txt")
-download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+browseVignettes("PrimerMiner")
+batch_download("taxa_cichs.csv", "config.txt")
 # Feel free to contact Vasco Elbrecht if you run into issues (twitter: @luckylionde). Enjoy!#
 #
 # set the path to the PrimerMinder folder you just downloaded#
-setwd("~/Desktop/PrimerMiner-master 5")
-setwd("~/Desktop/PrimerMiner-master-0.10")
-setwd("~/Desktop/PrimerMiner-0.10")
-setwd("~/Desktop/PrimerMiner-0.10")
-taxon <- "Plecoptera"#
-k <- 1#
-i <- 1#
-minlength=500#
-maxlength=20000#
-folder_path <- "~/Desktop/"
-searchQ <- paste(taxon[k],"[Organism] AND mitochondrion[filter] AND genome AND ", minlength, ":", maxlength ,"[Sequence Length]", sep="")
-search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999)
+setwd("~/Desktop/PrimerMiner-0.11 2/Sample_Data")#
+#
+# install the PrimerMiner package icl dependencies#
+#install.packages(c("bo
 library("PrimerMiner")
-search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999)
+setwd("Sample_Data")
+batch_download("taxa_cichs.csv", "config.txt")
+batch_download("taxa_small.csv", "config.txt")
+?download.file
+folder=NULL
+minlength=2001
+maxlength=80000
+custom_query=NULL
+setwd=NULL
+setwd("~/Desktop/primerminer_test")
+taxon <- "Perlidae"
+if(!is.null(setwd)){logfile <- paste(setwd, "/log.txt", sep="")} else {logfile <- "log.txt"}
+setwd
+cat(paste(Sys.time(), " - Downloading Miochondrial Genomes from GenBank\n\n"), file=logfile, sep="", append=T)
+if (is.null(custom_query)){cat(paste("Search query: REPLACE_WITH_TAXA", "[Organism] AND mitochondrion[filter] AND genome AND ", minlength, ":", maxlength ,"[Sequence Length]\n\n", sep=""), file=logfile, sep="", append=T)} else {cat(paste("Search query: REPLACE_WITH_TAXA", custom_query, "\n\n", sep=""), file=logfile, sep="", append=T)}#
+#
+folder_path <- ""#
+if(!is.null(folder)){dir.create(folder, showWarnings=F)#
+folder_path <- paste(folder, "/", sep="")#
+cat(paste("#mito_data: Folder ",folder, "\n", sep=""), file=logfile, sep="", append=T)#
+} else {cat(paste("#mito_data: ", "\n", sep=""), file=logfile, sep="", append=T)}#
+cat("Taxon\tSequences\tdownl_time\n", file=logfile, sep="", append=T)
+folder
+for (k in 1:length(taxon)){#
+time <- Sys.time() # get time#
+# download IDs#
+if (is.null(custom_query)){#
+searchQ <- paste(taxon[k],"[Organism] AND mitochondrion[filter] AND genome AND ", minlength, ":", maxlength ,"[Sequence Length]", sep="")#
+} else {searchQ <- paste(taxon, custom_query, sep="")}#
+#
+search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999)#
+#
+# save genbank file!#
+if(length(search_results$ids)!=0){#
+cat(file=paste(folder_path, taxon[k], "_mito.gb", sep="")) # overwrite old files#
+for (i in 1:length(search_results$ids)){#
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")#
+}#
+}#
+#
+time <- Sys.time() - time#
+message(paste("Downloaded ", length(search_results$ids)," mitogenomes for ", taxon[k], " in ", format(time, digits=2), ".", sep=""))#
+cat(paste(taxon[k],"\t", length(search_results$ids), "\t", format(time, digits=2), "\n", sep=""), file=logfile, sep="", append=T)#
+#
+}#
+cat(paste("#mito_data_end", "\n\n", sep=""), file=logfile, sep="", append=T)
 search_results$ids
-download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
 download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
-library("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner")
-install.packages("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner", repos = NULL, type="source", dependencies=T)
-install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+?download.file
+temp <- download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+temp
+temp <- download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), mode="a", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="at", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="at", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="at", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="at", quiet=T, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=F, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=F, method="curl")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+paste(folder_path, taxon[k], "_mito.gb", sep="")
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile="temp.txt", mode="a", quiet=T, method="curl")
+readLines("temp.txt")
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)
+file.remove("temp.txt")
+file.remove("temp.txt")
+temp <- file.remove("temp.txt", )
+file.remove("temp.txt", showWarnings=F)
+temp <- file.remove("temp.txt")
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile="temp.txt", mode="a", quiet=T, method="curl")
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)
+temp <- file.remove("temp.txt")
+glumandaoderso <- file.remove("temp.txt")
+for (i in 1:length(search_results$ids)){#
+#download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")#
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile="temp.txt", mode="a", quiet=T, method="curl")#
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T)#
+}#
+glumandaoderso <- file.remove("temp.txt")
+for (i in 1:length(search_results$ids)){#
+#download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")#
+download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile="temp.txt", mode="a", quiet=T, method="curl")#
+cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T, sep="\n")#
+}
+# Feel free to contact Vasco Elbrecht if you run into issues (twitter: @luckylionde). Enjoy!#
+#
+# set the path to the PrimerMinder folder you just downloaded#
 setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner")
 install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)

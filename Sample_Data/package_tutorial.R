@@ -52,11 +52,13 @@ dev.off()
 
 
 # in silico primer evaluation
+# With PrimerMiner v0.13 the scorring tables for missmatch possition and type are integrated in PrimerMiner. You can however generate your defult tables and use them (provide them as a csv, see sample data for the default tables!)
 
-evaluate_primer("primer_scoring/01_Plecoptera_subset.fasta", "GGTCAACAAATCATAAAGATATTGG", 1, 25, save="save_evaluation_table_LCO.csv", mm_position ="primer_scoring/Position_v1.csv", adjacent=2, mm_type="primer_scoring/Type_v1.csv") 
+
+evaluate_primer("primer_scoring/01_Plecoptera_subset.fasta", "GGTCAACAAATCATAAAGATATTGG", 1, 25, save="save_evaluation_table_LCO.csv", mm_position ="Position_v1", adjacent=2, mm_type="Type_v1") 
 
 
-evaluate_primer("primer_scoring/01_Plecoptera_subset.fasta", "ARYATDGTRATDGCHCCDGC", 585, 604, save="save_evaluation_table_BR1.csv", mm_position ="primer_scoring/Position_v1.csv", adjacent=2, mm_type="primer_scoring/Type_v1.csv", forward=F) 
+evaluate_primer("primer_scoring/01_Plecoptera_subset.fasta", "ARYATDGTRATDGCHCCDGC", 585, 604, save="save_evaluation_table_BR1.csv", mm_position ="Position_v1", adjacent=2, mm_type="Type_v1", forward=F) 
 
 # Evaluate primer paird against each others
 primer_threshold("save_evaluation_table_LCO.csv", "save_evaluation_table_BR1.csv", threshold=120)

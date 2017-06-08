@@ -1,15 +1,25 @@
 
-evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T, save=NULL, gap_NA=T, N_NA=T, mm_position=NULL, mm_type=NULL, adjacent=2){
+evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T, save=NULL, gap_NA=T, N_NA=T, mm_position="Position_v1", mm_type="Type_v1", adjacent=2){
 
 # load defults or load csv
 
 
 if(is.null(mm_position)){stop("Pleas supply a table indicating penalty scorres for the mismatch possitions. Please see https://github.com/VascoElbrecht/PrimerMiner/wiki/6-Primer-evaluation-(in-silico) for details")
-stop()} else {pos <- read.csv(mm_position, header=F)}
+stop()}
+else if(mm_position=="Position_v1"){pos <- read.csv(paste(system.file(package="PrimerMiner"), "/Position_v1.csv", sep=""), header=F)
+message("Using the default penalty score table (Position_v1)")	
+} else {pos <- read.csv(mm_position, header=F)
+message(paste("Penalty are used from the following table: ", mm_position, sep=""))}
 
-if(is.null(mm_type)){print("Mismatch types are ignored.")} else {
+
+
+if(is.null(mm_type)){message("Mismatch types are ignored.")}
+else if(mm_type=="Type_v1"){
+type <- read.csv(paste(system.file(package="PrimerMiner"), "/Type_v1.csv", sep=""))
+message("Using the default missmatch type table (Type_v1)")}
+else {
 type <- read.csv(mm_type)
-message(paste("Mismatch types are considered using the table:", mm_type, sep="") )
+message(paste("Mismatch types are considered using the table: ", mm_type, sep=""))
 }
 
 
@@ -128,7 +138,7 @@ names(sequ3) <- names(sequ2)
 
 mm <- unlist(primer_woble[i,]) # bases present in primer
 
-type <- read.csv(mm_type) # mm table
+#type <- read.csv(mm_type) # mm table
 
 
 
