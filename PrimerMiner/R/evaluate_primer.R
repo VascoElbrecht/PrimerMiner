@@ -5,8 +5,7 @@ evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T
 
 
 if(is.null(mm_position)){stop("Pleas supply a table indicating penalty scorres for the mismatch possitions. Please see https://github.com/VascoElbrecht/PrimerMiner/wiki/6-Primer-evaluation-(in-silico) for details")
-stop()}
-else if(mm_position=="Position_v1"){pos <- read.csv(paste(system.file(package="PrimerMiner"), "/Position_v1.csv", sep=""), header=F)
+stop()} else if(mm_position=="Position_v1"){pos <- read.csv(paste(system.file(package="PrimerMiner"), "/Position_v1.csv", sep=""), header=F)
 message("Using the default penalty score table (Position_v1)")	
 } else {pos <- read.csv(mm_position, header=F)
 message(paste("Penalty are used from the following table: ", mm_position, sep=""))}
@@ -14,10 +13,9 @@ message(paste("Penalty are used from the following table: ", mm_position, sep=""
 
 
 if(is.null(mm_type)){message("Mismatch types are ignored.")}
-else if(mm_type=="Type_v1"){
+if(mm_type=="Type_v1"){
 type <- read.csv(paste(system.file(package="PrimerMiner"), "/Type_v1.csv", sep=""))
-message("Using the default missmatch type table (Type_v1)")}
-else {
+message("Using the default missmatch type table (Type_v1)")} else {
 type <- read.csv(mm_type)
 message(paste("Mismatch types are considered using the table: ", mm_type, sep=""))
 }
@@ -52,6 +50,9 @@ alignment1 <- read.fasta(alignment_imp, seqonly=T)
 alignment1  <- toupper(alignment1)
 alignment <- unlist(strsplit(alignment1, split=""))
 alignment <- matrix(alignment, nrow=length(alignment1), ncol=nchar(alignment1[1]), byrow=T)
+
+sequ_names <- read.fasta(alignment_imp, seqonly=F)
+sequ_names <- names(sequ_names)
 
 # order start stop - in case it was written in the "wrong" order
 temp <- sort(c(start, stop))
@@ -216,6 +217,9 @@ row.names(scores) <- 1:nrow(scores)
 
 
 if(primer_region_1){scores <- scores[1,]}# remove duplicated row, as only one sequence
+
+
+scores <- data.frame("Template"= sequ_names, scores)
 
 if(!is.null(save)){write.csv(scores, save)} else {stop("Problem: no save file given!")}# save
 
