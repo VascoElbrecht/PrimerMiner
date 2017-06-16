@@ -54,7 +54,7 @@ If true, includes template sequence names as provided in the sequence alignment 
 \value{
 }
 \references{
-Elbrecht & Leese (2016). PrimerMiner: an r package for development and in silico validation of DNA metabarcoding primers. Methods in Ecology and Evolution \href{http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12687/full}{DOI: 10.1111/2041-210X.12687}
+Elbrecht & Leese (2016). PrimerMiner: an r package for development and in silico validation of DNA metabarcoding primers. Methods in Ecology and Evolution [DOI: 10.1111/2041-210X.12687]
 }
 \author{
 }
