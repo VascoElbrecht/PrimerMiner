@@ -9,7 +9,7 @@ Compare primer sequence against each sequence in a sequence alignment (supply fa
 For each sequence penalty scores are calculated and saved in a csv file. Penalty scores can be further analysed statisticly or all sequences above a certain treshold be considdered not working. See \link{primer_threshold} for details.
 }
 \usage{
-evaluate_primer(alignment_imp, primer_sequ, start, stop, forward = T, save = NULL, gap_NA = T, N_NA = T, mm_position = NULL, mm_type = NULL, adjacent = 2)
+evaluate_primer(alignment_imp, primer_sequ, start, stop, forward = T, save = NULL, gap_NA = T, N_NA = T, mm_position = NULL, mm_type = NULL, adjacent = 2, sequ_names=T)
 }
 \arguments{
   \item{alignment_imp}{
@@ -45,12 +45,16 @@ Suppliy a table here indicating penalty adjustments depending on the mismatch ty
   \item{adjacent}{
 Factor with wich penalty scores of adjacent nucleotides should be multiplied. To turn this option off set to 1.
 }
+  \item{sequ_names}{
+If true, includes template sequence names as provided in the sequence alignment (fasta file).
+}
 }
 \details{
 }
 \value{
 }
 \references{
+Elbrecht & Leese (2016). PrimerMiner: an r package for development and in silico validation of DNA metabarcoding primers. Methods in Ecology and Evolution \href{http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12687/full}{DOI: 10.1111/2041-210X.12687}
 }
 \author{
 }

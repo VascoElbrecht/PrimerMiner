@@ -1,5 +1,5 @@
 
-evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T, save=NULL, gap_NA=T, N_NA=T, mm_position="Position_v1", mm_type="Type_v1", adjacent=2){
+evaluate_primer <- function(alignment_imp, primer_sequ, start, stop, forward = T, save=NULL, gap_NA=T, N_NA=T, mm_position="Position_v1", mm_type="Type_v1", adjacent=2, sequ_names=T){
 
 # load defults or load csv
 
@@ -51,8 +51,11 @@ alignment1  <- toupper(alignment1)
 alignment <- unlist(strsplit(alignment1, split=""))
 alignment <- matrix(alignment, nrow=length(alignment1), ncol=nchar(alignment1[1]), byrow=T)
 
-sequ_names <- read.fasta(alignment_imp, seqonly=F)
-sequ_names <- names(sequ_names)
+
+if(sequ_names){
+all_sequ_names <- read.fasta(alignment_imp, seqonly=F)
+all_sequ_names <- names(all_sequ_names)
+}
 
 # order start stop - in case it was written in the "wrong" order
 temp <- sort(c(start, stop))
@@ -218,8 +221,10 @@ row.names(scores) <- 1:nrow(scores)
 
 if(primer_region_1){scores <- scores[1,]}# remove duplicated row, as only one sequence
 
+if(sequ_names){
+scores <- data.frame("Template"= all_sequ_names, scores)
+}
 
-scores <- data.frame("Template"= sequ_names, scores)
 
 if(!is.null(save)){write.csv(scores, save)} else {stop("Problem: no save file given!")}# save
 
