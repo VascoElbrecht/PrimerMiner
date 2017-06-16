@@ -226,7 +226,7 @@ scores <- data.frame("Template"= all_sequ_names, scores)
 }
 
 
-if(!is.null(save)){write.csv(scores, save)} else {stop("Problem: no save file given!")}# save
+if(!is.null(save)){write.csv(scores, save)} else {return(scores)}# save
 
 message("I'm done = )")
 
