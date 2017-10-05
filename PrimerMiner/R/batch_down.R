@@ -33,6 +33,7 @@ download_and_cluster <- T # tipicly data has not been processed
 
 if(Skip_if_complete){
 done <- file.exists(paste(subFolder, "/", "done.txt", sep=""))
+
 if(done){
 download_and_cluster <- F # DON'T REDOWNLOAD DATA
 time <- readLines(paste(subFolder, "/", "done.txt", sep=""), warn=F)
@@ -88,6 +89,11 @@ all_file_TF <- c(all_file_TF, mito_fasta)}
 # all files together
 all_fasta <- paste(subFolder, "/", subFolder, "_all.fasta", sep="")
 
+if(is.null(all_file_TF)){
+glumanda <- paste("WARNING: For the group ", subFolder, " no sequences were obtained from the given reference databases. review the taxon spelling or search for a broader group / aktivate downloading on all databases.\n\n")
+cat(file=paste(subFolder, "/log.txt", sep=""), glumanda, append=T)
+message(glumanda)
+} else {
 
 Merge_fasta(all_file_TF, save=all_fasta , clip_left=0, clip_right=0, setwd=subFolder)
 
@@ -99,6 +105,7 @@ all_fasta <- paste(subFolder, "_all.fasta", sep="")
 
 Clustering(all_fasta, vsearchpath= vsearchpath, id=id, threshold=threshold, setwd=subFolder)
 message(" ")
+} # empy file else done
 message("-------------------")
 message(" ")
 
