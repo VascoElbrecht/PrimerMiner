@@ -90,7 +90,7 @@ all_file_TF <- c(all_file_TF, mito_fasta)}
 all_fasta <- paste(subFolder, "/", subFolder, "_all.fasta", sep="")
 
 if(is.null(all_file_TF)){
-glumanda <- paste("WARNING: For the group ", subFolder, " no sequences were obtained from the given reference databases. review the taxon spelling or search for a broader group / aktivate downloading on all databases.\n\n")
+glumanda <- paste("\nWARNING: For the group ", subFolder, " no sequences were obtained from the given reference databases. review the taxon spelling or search for a broader group / aktivate downloading on all databases.\n\n")
 cat(file=paste(subFolder, "/log.txt", sep=""), glumanda, append=T)
 message(glumanda)
 } else {
