@@ -1,0 +1,3 @@
+Changes with the next update (already committed):
+
+- The batch download no longer terminates if an order does not have any sequences in it. Now a warning is issued and the script skips to the next order.
