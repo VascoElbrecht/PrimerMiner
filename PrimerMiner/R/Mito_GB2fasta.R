@@ -41,8 +41,8 @@ temp <- gb[range[i]:range[i+1]]
 query <- paste("/(gene|CDS|product)=\"(", paste(marker, sep="", collapse="|") ,")\"", sep="")
 cds_pos <- grep("( gene   | CDS   | rRNA   )", temp)
 
-
 COX1 <- cds_pos[grep(query, temp[cds_pos+1], ignore.case=T)[1]]
+if(is.na(COX1)){COX1 <- cds_pos[grep(query, temp[cds_pos+2], ignore.case=T)[1]]} #try second line!
 COX1 <- temp[COX1]
 if(grepl("join", COX1)){COX1 <- c(NA, NA)} else{
 COX1 <- gsub("[[:alpha:]<> ()]", "", COX1)
