@@ -4,7 +4,7 @@
 setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner")
 
 # install the PrimerMiner package icl dependencies
-#install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)
+install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)
 install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
 
 # load the package into R
