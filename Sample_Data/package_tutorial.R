@@ -1,4 +1,4 @@
-# Feel free to contact Vasco Elbrecht if you run into issues (twitter: @luckylionde). Enjoy!
+# Feel free to contact Vasco per mail if you run into issues (luckylion07@googlemail.com). Enjoy!
 
 # set the path to the PrimerMinder folder you just downloaded
 setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner")
