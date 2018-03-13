@@ -16,7 +16,7 @@ library("bold")
 
 for (k in 1:length(taxon)){
 time <- Sys.time() # get time
-data <- bold_seq(taxon=taxon[k], marker="COI-5P")
+data <- bold_seq(taxon=taxon[k]) #, marker="COI-5P"
 
 if(length(data)!=0){
 cat(file=paste(folder_path, taxon[k], "_BOLD.fasta", sep="")) # delet old file
