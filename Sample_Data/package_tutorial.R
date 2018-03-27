@@ -65,5 +65,6 @@ primer_threshold("save_evaluation_table_LCO.csv", "save_evaluation_table_BR1.csv
 
 
 
-
+# generate different primer versions that are contained in a degenerated primer
+primerversions("GCHCCHGAYATRGCHTTYCC") # BF2
 
