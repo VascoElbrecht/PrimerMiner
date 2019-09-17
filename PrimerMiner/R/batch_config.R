@@ -30,6 +30,7 @@ paste("Version =", packageVersion("PrimerMiner"), "# you might need to regenerat
 "custom_query_GB = NULL",
 "clipping_left_GB = 0",
 "clipping_rigth_GB = 0",
+"GB_subset=NULL # Enter the maximum number of sequences to download to reduce download time",
 "",
 "# Mitochondria download, see ?Download_mito and ?Mito_GB2fasta for details",
 "download_mt = T",
