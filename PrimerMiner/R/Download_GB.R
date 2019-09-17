@@ -48,7 +48,7 @@ cat("", file=paste(folder_path, taxon[k], "_GB.fasta", sep=""), sep="", append=F
 if(!is.list(search_results)){
 	
 message("Using GB_subset = ", GB_subset)
-
+start <-0
 i <- 1
 chunks <- length(search_results)/300
 if (!is.integer(chunks)){chunks <- as.integer(length(search_results)/300)+1}
