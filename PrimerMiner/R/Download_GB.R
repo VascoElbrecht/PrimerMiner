@@ -35,7 +35,7 @@ if(!is.null(GB_subset)){
 if(GB_subset<length(search_results$ids)){
 search_results <- search_results$ids
 search_results <- sample(search_results, GB_subset)
-}
+} else {search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999, use_history=T)}
 }
 # add rarfaction end
 

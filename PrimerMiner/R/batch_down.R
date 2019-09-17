@@ -50,7 +50,7 @@ if(download_and_cluster){
 
 if (Download){
 if (download_bold){Download_BOLD(taxa, folder= subFolderPath, setwd=subFolder)}
-if (download_GB){Download_GB(taxa, folder= subFolderPath, marker=Marker, maxlength= maxlength_GB, custom_query= custom_query_GB, setwd=subFolder, GB_subset=GB_subset)}
+if (download_GB){Download_GB(taxa, folder= subFolderPath, marker=Marker, maxlength= maxlength_GB, custom_query= custom_query_GB, setwd=subFolder, GB_subset=GB_Subset)}
 if (download_mt){Download_mito(taxa, folder= subFolderPath, minlength= minlength_mt, maxlength= maxlength_mt, custom_query = custom_query_mt, setwd=subFolder)
 	if (length(list.files(subFolderPath, pattern="mito.gb$"))>0){
 		message(" ")
