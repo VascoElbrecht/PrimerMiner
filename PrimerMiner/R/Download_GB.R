@@ -29,7 +29,7 @@ if(is.null(GB_subset)){
 search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999, use_history=T)} else {search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999, use_history=F)}
 
 message(length(search_results$ids)," seqences detected for ", taxon[k])
-
+numberofsequences <- length(search_results$ids)
 
 # Add rarefaction
 
@@ -42,7 +42,7 @@ search_results <- sample(search_results, GB_subset)
 # add rarfaction end
 
 
-if(length(search_results)!=0){
+if(numberofsequences!=0){
 
 cat("", file=paste(folder_path, taxon[k], "_GB.fasta", sep=""), sep="", append=F) # overwrite old file!
 
@@ -100,13 +100,12 @@ if (length(meep)!=if(!is.list(search_results)){length(search_results)}else{lengt
 warning("WARNING: Something went wrong with the download. Numer of files in GB does not match number of downloaded files!")
 cat(paste("\nWARNING: Something went wrong with the download. Numer of files in GB does not match number of downloaded files!\n\n"), file=logfile, sep="", append=T)}
 
-}
-
-
-
 time <- Sys.time() - time
 message(paste("Downloaded ", if(!is.list(search_results)){length(search_results)}else{length(search_results$ids)}," sequences for ", taxon[k], " in ", format(time, digits=2), " from NCBI.", sep=""))
 cat(paste(taxon[k],"\t", if(!is.list(search_results)){length(search_results)}else{length(search_results$ids)}, "\t", format(time, digits=2), "\n", sep=""), file=logfile, sep="", append=T)
+
+}
+
 }
 
 cat("#GB_data_end\n\n", file=logfile, sep="", append=T)

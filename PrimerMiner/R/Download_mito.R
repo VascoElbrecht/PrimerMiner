@@ -47,6 +47,8 @@ search_results$ids <- sample(search_results$ids, MT_Subset)
 for (i in 1:length(search_results$ids)){
 download.file(paste("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile="temp.txt", mode="a", quiet=T, method="curl")
 cat(readLines("temp.txt"), file=paste(folder_path, taxon[k], "_mito.gb", sep=""), append=T, sep="\n")
+Sys.sleep(0.5)
+message(i)
 }
 glumandaoderso <- file.remove("temp.txt")
 }
