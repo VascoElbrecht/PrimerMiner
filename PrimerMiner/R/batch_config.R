@@ -43,7 +43,7 @@ paste("Version =", packageVersion("PrimerMiner"), "# you might need to regenerat
 "add_mt = 100",
 "rm_dup = T",
 "no_marker = T",
-"mt_subset = NULL"
+"mt_subset = NULL",
 "",
 "# BOLD download, see ?Download_BOLD for details",
 "download_bold = T",
