@@ -1,4 +1,5 @@
-Download_mito <- function(taxon, folder=NULL, minlength=2001, maxlength=80000, custom_query=NULL, setwd=NULL){
+
+Download_mito <- function(taxon, folder=NULL, minlength=2001, maxlength=80000, custom_query=NULL, setwd=NULL, MT_Subset=NULL){
 
 if(!is.null(setwd)){logfile <- paste(setwd, "/log.txt", sep="")} else {logfile <- "log.txt"}
 
@@ -25,9 +26,22 @@ searchQ <- paste(taxon[k],"[Organism] AND mitochondrion[filter] AND genome AND "
 
 search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999)
 
+message(length(search_results$ids)," Mitogenomes detected for ", taxon[k])
+
+
 # save genbank file!
 if(length(search_results$ids)!=0){
 cat(file=paste(folder_path, taxon[k], "_mito.gb", sep="")) # overwrite old files
+
+# do subsetting
+
+if(!is.null(MT_Subset)){
+if(length(search_results$ids)> MT_Subset){
+message("Subsampling Mitogenomes to ", MT_Subset)
+search_results$ids <- sample(search_results$ids, MT_Subset)
+}
+}
+
 
 
 for (i in 1:length(search_results$ids)){
