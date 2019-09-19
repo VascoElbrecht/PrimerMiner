@@ -48,7 +48,7 @@ if(grepl("join", COX1)){COX1 <- c(NA, NA)} else{
 COX1 <- gsub("[[:alpha:]<> ()]", "", COX1)
 COX1 <- as.numeric(c(gsub("(.*)\\.\\..*$", "\\1", COX1), gsub(".*\\.\\.(.*)$", "\\1", COX1)))}
 
-if (!is.na(COX1[1])&!is.na(COX1[2])){
+if (!is.na(COX1[1])&!is.na(COX1[2])&length(grep("ORIGIN      ", temp))!=0){
 sequ <- temp[(grep("ORIGIN      ", temp)+2):length(temp)-1]
 sequ <- paste(gsub("[ 1234567890]", "", sequ), collapse="")
 
