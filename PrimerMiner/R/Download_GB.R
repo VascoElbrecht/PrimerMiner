@@ -28,6 +28,8 @@ searchQ <- paste(taxon[k],"[Organism] AND (", paste(c(marker), collapse=" OR "),
 if(is.null(GB_subset)){
 search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999, use_history=T)} else {search_results <- entrez_search(db="nuccore", term=searchQ, retmax=9999999, use_history=F)}
 
+message(length(search_results$ids)," seqences detected for ", taxon[k])
+
 
 # Add rarefaction
 
