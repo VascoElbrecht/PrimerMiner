@@ -18,9 +18,9 @@ if(!"BOLDconnectR" %in% loadedNamespaces()){
 library("BOLDconnectR")
 }
 # Bold API key (log into your bold systems account to obtain)
-if(exists("apikey")){
+#if(exists("apikey")){
 bold.apikey(apikey_bold) 
-}
+#}
 
 for (k in 1:length(taxon)){
 time <- Sys.time() # get time

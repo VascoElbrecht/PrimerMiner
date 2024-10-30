@@ -1,11 +1,13 @@
 # Feel free to contact Vasco per mail if you run into issues (luckylion07@googlemail.com). Enjoy!
 
 # set the path to the PrimerMinder folder you just downloaded
-setwd("~/Documents/UNI_und_VORLESUNGEN/GitHub/PrimerMiner")
+setwd("~/Desktop/PrimerMiner")
 
-# install the PrimerMiner package icl dependencies
-install.packages(c("bold", "XML", "rentrez", "seqinr"), dependencies=T)
-install.packages("PrimerMiner", repos = NULL, type="source", dependencies=T)
+# automatically downlaod & install the PrimerMiner package icl dependencies
+install.packages("devtools")
+library("devtools")
+install_github("boldsystems-central/BOLDconnectR")
+install_github("VascoElbrecht/PrimerMiner", subdir="PrimerMiner")
 
 # load the package into R
 library("PrimerMiner")
