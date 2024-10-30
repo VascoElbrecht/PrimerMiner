@@ -2342,11 +2342,6 @@ download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db
 library("BOLDconnectR")
 getwd()
 library("BOLDconnectR")
-library("BOLDconnectR")
-library("BOLDconnectR")
-library("BOLDconnectR")
-library("BOLDconnectR")
-library("BOLDconnectR")
 bold.apikey("")
 bold.apikey("adwq")
 bold.apikey

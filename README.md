@@ -12,8 +12,18 @@ Please take a look at the PrimerMiner wiki for detailed package documentation an
 ## Quick guide
 
 1) Installation
+You can install PrimerMiner directly from GitHub. You will also need to install [BOLDconnectR](https://github.com/boldsystems-central/BOLDconnectR).
+`install.packages("devtools")`
+`library("devtools")`
+`install_github("boldsystems-central/BOLDconnectR")`
+`install_github("VascoElbrecht/PrimerMiner", subdir="PrimerMiner")`
+
+Alternatively, you can download a specific PrimerMiner version manually and install it with:
 `install.packages("path_to_package_file", repos = NULL, type="source", dependencies=T)`
-Load the package with `library("PrimerMiner")`. You find al the commands and an executable example in the Sample_Data!
+
+Load the package with `library("PrimerMiner")`. You find all the commands and an executable example in the Sample_Data!
+
+Important: you will need the apikey from you BOLD login to download bold data (currently November 2024 its not checked, any key works, but this might change in the future).
 
 2) Batch downloading sequences
 Generate the configuration file by runing `batch_config("config.txt")`in R. Edit this file to review and change the default settings.

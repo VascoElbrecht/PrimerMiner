@@ -12,15 +12,21 @@ cat(paste("#Bold_data: Folder ",folder, "\n", sep=""), file= logfile, sep="", ap
 } else {cat(paste("#Bold_data: ", "\n", sep=""), file= logfile, sep="", append=T)}
 cat("Taxon\tSequences\tdownl_time\n", file= logfile, sep="", append=T)
 
-# library("bold")
 # Use new BOLD library for boldsystems v5 
+# library("bold")
+if(!"BOLDconnectR" %in% loadedNamespaces()){
 library("BOLDconnectR")
+}
 # Bold API key (log into your bold systems account to obtain)
-bold.apikey("adwq") 
+if(exists("apikey")){
+bold.apikey(apikey_bold) 
+}
 
 for (k in 1:length(taxon)){
 time <- Sys.time() # get time
-data <- bold_seq(taxon=taxon[k]) #, marker="COI-5P"
+data <- bold.public.search(taxonomy = taxon[k]) # fetch process IDs for specific taxons
+
+
 
 if(length(data)!=0){
 cat(file=paste(folder_path, taxon[k], "_BOLD.fasta", sep="")) # delet old file

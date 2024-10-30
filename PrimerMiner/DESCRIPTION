@@ -1,11 +1,11 @@
 Package: PrimerMiner
 Type: Package
 Title: PrimerMiner an R package for development and in silico validation of DNA metabarcoding primers
-Version: 0.18
-Date: 2018-03-27
+Version: 0.22
+Date: 2024-10-30
 Author: Vasco Elbrecht
 Maintainer: Vasco Elbrecht <luckylion07@googlemail.com>
 Description: PrimerMiner is a R based batch sequence downloader to design and verify metabarcoding primers. Sequences for a specified marker (e.g. COI) are obtained from NCBI and BOLD and clustered into Operational taxonomic units (OTU) to reduce bias introduced by over represented sequences in the data bases.
 License: GPL-3
-Depends: bold, XML, rentrez, seqinr
+Depends: BOLDconnectR, XML, rentrez, seqinr
 VignetteBuilder: knitr
