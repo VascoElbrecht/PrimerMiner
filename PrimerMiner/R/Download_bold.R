@@ -12,7 +12,11 @@ cat(paste("#Bold_data: Folder ",folder, "\n", sep=""), file= logfile, sep="", ap
 } else {cat(paste("#Bold_data: ", "\n", sep=""), file= logfile, sep="", append=T)}
 cat("Taxon\tSequences\tdownl_time\n", file= logfile, sep="", append=T)
 
-library("bold")
+# library("bold")
+# Use new BOLD library for boldsystems v5 
+library("BOLDconnectR")
+# Bold API key (log into your bold systems account to obtain)
+bold.apikey("adwq") 
 
 for (k in 1:length(taxon)){
 time <- Sys.time() # get time

@@ -2339,3 +2339,24 @@ download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db
 download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=F)
 ?download.file
 download.file(paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=", search_results$ids[i], "&rettype=gb&retmode=text", sep=""), destfile=paste(folder_path, taxon[k], "_mito.gb", sep=""), mode="a", quiet=T, method="curl")
+library("BOLDconnectR")
+getwd()
+library("BOLDconnectR")
+library("BOLDconnectR")
+library("BOLDconnectR")
+library("BOLDconnectR")
+library("BOLDconnectR")
+library("BOLDconnectR")
+bold.apikey("")
+bold.apikey("adwq")
+bold.apikey
+bold.apikey("4E5E7873-F5DA-4409-8CF8-D15A4822AE11")
+bold.data <- bold.public.search(taxonomy = "Dinocras")
+bold.data
+bold.data <- bold.public.search(taxonomy = "Dinocras")
+bold.data
+bold.apikey("4E5E7873-F5DA-4409-8CF8-D15A4822AE11xasdasd")
+bold.data <- bold.public.search(taxonomy = "Dinocras")
+bold.apikey("4E5E7873-F5DA-4409-8CF8-D15A4822AE1")
+bold.data <- bold.public.search(taxonomy = "Dinocras")
+bold.apikey("4E5E7873-F5DA-4409-8CF8-D15A4822AE11")
