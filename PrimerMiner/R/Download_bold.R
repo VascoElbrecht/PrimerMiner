@@ -24,20 +24,32 @@ bold.apikey(apikey_bold)
 
 for (k in 1:length(taxon)){
 time <- Sys.time() # get time
-data <- bold.public.search(taxonomy = taxon[k]) # fetch process IDs for specific taxons
+bold.data <- bold.public.search(taxonomy = taxon[k]) # fetch process IDs for specific taxons
 
+data <- bold.fetch(get_by = "processid", identifiers = bold.data$processid)
+
+# save tsv (without any processing)
+if(save_bold_tsv){
+write.table(data, file=paste(folder_path, taxon[k], "_BOLD.tsv"), quote=F, sep='\t', row.names=F)
+}
+
+# filter for only needed marker codes
+data <- data[data$marker_code == marker_bold,]
+
+# remove gabs from sequences
+data$nuc <- gsub("-", "", data$nuc)
+data <- data[nchar(data$nuc)>1,]
 
 
 if(length(data)!=0){
 cat(file=paste(folder_path, taxon[k], "_BOLD.fasta", sep="")) # delet old file
-for (i in 1:length(data)){
-exp <- paste(">", data[i][[1]][1], "_", data[i][[1]][2], "\n", gsub("-", "", data[i][[1]][4]), "\n", sep="")
-cat(exp, file=paste(folder_path, taxon[k], "_BOLD.fasta", sep=""), append=T)
-}
+exp <- paste(">", data$processid, "___", data$order, "_", data$species, "\n", data$nuc, "\n", sep="")
+
+cat(exp, file=paste(folder_path, taxon[k], "_BOLD.fasta", sep=""), append=T, sep="")
 }
 time <- Sys.time() - time
-message(paste("Downloaded ", length(data)," sequences for ", taxon[k], " in ", format(time, digits=2), " from BOLD.", sep=""))
-cat(paste(taxon[k],"\t", length(data), "\t", format(time, digits=2), "\n", sep=""), file= logfile, sep="", append=T)
+message(paste("Downloaded ", nrow(data)," sequences for ", taxon[k], " in ", format(time, digits=2), " from BOLD.", sep=""))
+cat(paste(taxon[k],"\t", nrow(data), "\t", format(time, digits=2), "\n", sep=""), file= logfile, sep="", append=T)
 }
 cat("#Bold_data_end\n\n", file= logfile, sep="", append=T)
 }
