@@ -26,11 +26,19 @@ for (k in 1:length(taxon)){
 time <- Sys.time() # get time
 bold.data <- bold.public.search(taxonomy = taxon[k]) # fetch process IDs for specific taxons
 
+if(!is.null(subset_bold)){
+if(subset_bold < nrow(bold.data)){
+message("Dowloading subset for \"", taxon[k], "\": ", subset_bold, " / ", nrow(bold.data))
+rowsToKeep <- sample(1:nrow(bold.data), subset_bold)
+bold.data  <- bold.data[rowsToKeep,]
+}
+}
+
 data <- bold.fetch(get_by = "processid", identifiers = bold.data$processid)
 
 # save tsv (without any processing)
 if(save_bold_tsv){
-write.table(data, file=paste(folder_path, taxon[k], "_BOLD.tsv"), quote=F, sep='\t', row.names=F)
+write.table(data, file=paste0(folder_path, taxon[k], "_BOLD.tsv"), quote=F, sep='\t', row.names=F)
 }
 
 # filter for only needed marker codes
@@ -48,7 +56,7 @@ exp <- paste(">", data$processid, "___", data$order, "_", data$species, "\n", da
 cat(exp, file=paste(folder_path, taxon[k], "_BOLD.fasta", sep=""), append=T, sep="")
 }
 time <- Sys.time() - time
-message(paste("Downloaded ", nrow(data)," sequences for ", taxon[k], " in ", format(time, digits=2), " from BOLD.", sep=""))
+message(paste("\nDownloaded ", nrow(data)," sequences for ", taxon[k], " in ", format(time, digits=2), " from BOLD.", sep=""))
 cat(paste(taxon[k],"\t", nrow(data), "\t", format(time, digits=2), "\n", sep=""), file= logfile, sep="", append=T)
 }
 cat("#Bold_data_end\n\n", file= logfile, sep="", append=T)

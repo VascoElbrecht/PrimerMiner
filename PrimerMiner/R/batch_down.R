@@ -1,7 +1,17 @@
 batch_download <- function(table, config){
 
+# store API key if already loaded...
+if(exists("apikey")){
+tempApiKey <- apikey
+}
 
 source(config)
+
+if(apikey_bold == "00000000-0000-0000-0000-000000000000"){
+bold.apikey(tempApiKey) 
+}
+
+
 if(is.data.frame(table)){} else {table <- read.csv(table, sep= Taxon_sep, stringsAsFactors=F)}
 
 table[2][is.na(table[2])] <- "" # replace NAs if only orders are given

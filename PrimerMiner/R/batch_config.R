@@ -53,6 +53,7 @@ paste("Version =", packageVersion("PrimerMiner"), "# you might need to regenerat
 "merge_bold = T",
 "clipping_left_bold = 0",
 "clipping_rigth_bold = 0",
+"subset_bold=NULL # Enter the maximum number of sequences to download to reduce download time. Obtained sequences might be less than specified if e.g. having a different marker code",
 "",
 "# Clustering sequences, see ?Clustering for details",
 paste("operating_system= \"", sys, "\" # autodetected, can be \"MacOSX\" or \"Linux\"", sep=""), 
