@@ -2,6 +2,7 @@ batch_download <- function(table, config){
 
 
 source(config)
+bold.apikey(apikey_bold) 
 
 if(is.data.frame(table)){} else {table <- read.csv(table, sep= Taxon_sep, stringsAsFactors=F)}
 
